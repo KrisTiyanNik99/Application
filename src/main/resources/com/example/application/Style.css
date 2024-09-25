@@ -1,0 +1,14 @@
+.nav-form{
+    -fx-background-color: linear-gradient(to bottom right, #272b3f, #256b51);
+}
+
+.nav-btn{
+    -fx-background-color:transparent;
+    -fx-cursor:hand;
+    -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.5),6,0,0,0);
+}
+
+.white-bg{
+    -fx-background-color:#fff;
+    -fx-background-radius:5px;
+}

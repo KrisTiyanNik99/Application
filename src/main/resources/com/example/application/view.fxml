@@ -2,6 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -9,63 +14,163 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="580.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.Controller">
-   <BorderPane layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <top>
-         <AnchorPane prefHeight="110.0" prefWidth="900.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
-            <children>
-               <Pane prefHeight="40.0" prefWidth="900.0" style="-fx-background-color: #032d4d;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               <HBox layoutX="210.0" layoutY="40.0" prefHeight="70.0" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-                  <children>
-                     <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="180.0" style="-fx-background-color: WHITE;" text="ADD PRODUCT">
+<AnchorPane prefHeight="580.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.application.Controller">
+    <BorderPane prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <top>
+            <AnchorPane prefHeight="110.0" prefWidth="900.0" style="-fx-background-color: WHITE;"
+                        BorderPane.alignment="CENTER">
+                <Pane prefHeight="40.0" prefWidth="900.0" style="-fx-background-color: #032d4d;"
+                      AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="0.0">
+                    <ImageView fx:id="btnExit" fitHeight="30.0" fitWidth="30.0" layoutX="856.0" layoutY="5.0"
+                               pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../Images/Cross_red_circle.svg.png"/>
+                    </ImageView>
+                </Pane>
+                <HBox layoutX="210.0" layoutY="40.0" prefHeight="70.0" prefWidth="690.0" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                    <Button fx:id="btnSend" mnemonicParsing="false" prefHeight="70.0" prefWidth="120.0"
+                            style="-fx-background-color: WHITE;" text="SEND">
                         <font>
-                           <Font name="System Bold" size="16.0" />
+                            <Font name="System Bold" size="16.0"/>
+                        </font>
+                        <graphic>
+                            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../../Images/send.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0"
+                            style="-fx-background-color: WHITE;" text="ADD PRODUCT">
+                        <font>
+                            <Font name="System Bold" size="16.0"/>
                         </font>
                         <HBox.margin>
-                           <Insets right="15.0" />
+                            <Insets right="15.0"/>
                         </HBox.margin>
-                     </Button>
-                     <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="180.0" style="-fx-background-color: WHITE;" text="DELETE PRODUCT">
+                    </Button>
+                    <Button fx:id="btnDeleteProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0"
+                            style="-fx-background-color: WHITE;" text="DELETE PRODUCT">
                         <font>
-                           <Font name="System Bold" size="16.0" />
+                            <Font name="System Bold" size="16.0"/>
                         </font>
                         <HBox.margin>
-                           <Insets right="15.0" />
+                            <Insets right="15.0"/>
                         </HBox.margin>
-                     </Button>
-                  </children>
-               </HBox>
-            </children>
-         </AnchorPane>
-      </top>
-      <left>
-         <AnchorPane prefHeight="470.0" prefWidth="210.0" style="-fx-background-color: #032d4d;" BorderPane.alignment="CENTER">
-            <children>
-               <VBox layoutX="55.0" layoutY="135.0" prefHeight="420.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                  <children>
-                     <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="210.0" style="-fx-background-color: #032d4d;" text="HOME" textFill="WHITE">
+                        <graphic>
+                            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../../Images/262039.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Pane prefHeight="70.0" prefWidth="70.0">
+                        <Label fx:id="productCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0"
+                               layoutY="35.0" prefHeight="35.0" prefWidth="30.0" text="0" textAlignment="JUSTIFY">
+                            <font>
+                                <Font name="System Bold" size="17.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="cardMenuClose" layoutX="8.0" prefHeight="70.0" prefWidth="65.0">
+                            <graphic>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../../../Images/basket-cart-icon-27.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="cardMenuOpen" layoutX="8.0" prefHeight="70.0" prefWidth="65.0">
+                            <graphic>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../../../Images/basket-cart-icon-27.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                    </Pane>
+                </HBox>
+            </AnchorPane>
+        </top>
+        <left>
+            <AnchorPane prefHeight="470.0" prefWidth="210.0" styleClass="nav-form" stylesheets="@Style.css"
+                        BorderPane.alignment="CENTER">
+                <VBox layoutX="55.0" layoutY="135.0" prefHeight="420.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <Button fx:id="btnHome" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0"
+                            prefWidth="210.0" styleClass="nav-btn" stylesheets="@Style.css" text="HOME"
+                            textFill="WHITE">
                         <font>
-                           <Font name="System Bold" size="19.0" />
+                            <Font name="System Bold" size="19.0"/>
                         </font>
-                     </Button>
-                     <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="210.0" style="-fx-background-color: #032d4d;" text="VEDENA" textFill="WHITE">
+                        <graphic>
+                            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../../Images/home_w.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="btnVedena" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0"
+                            prefWidth="216.0" styleClass="nav-btn" stylesheets="@Style.css" text="VEDENA"
+                            textFill="WHITE">
                         <font>
-                           <Font name="System Bold" size="19.0" />
+                            <Font name="System Bold" size="19.0"/>
                         </font>
-                     </Button>
-                     <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="210.0" style="-fx-background-color: #032d4d;" text="BIROTERAPIYA" textFill="WHITE">
+                        <graphic>
+                            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../../Images/vedena.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="btnBiroterapiya" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0"
+                            prefWidth="210.0" styleClass="nav-btn" stylesheets="@Style.css" text="BIROTERAPIYA"
+                            textFill="WHITE">
                         <font>
-                           <Font name="System Bold" size="19.0" />
+                            <Font name="System Bold" size="19.0"/>
                         </font>
-                     </Button>
-                     <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="210.0" style="-fx-background-color: #032d4d;" text="CONSUMER" textFill="WHITE">
+                        <graphic>
+                            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../../Images/biroterapiq.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="btnConsumer" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0"
+                            prefWidth="210.0" styleClass="nav-btn" stylesheets="@Style.css" text="CONSUMER"
+                            textFill="WHITE">
                         <font>
-                           <Font name="System Bold" size="19.0" />
+                            <Font name="System Bold" size="19.0"/>
                         </font>
-                     </Button>
-                  </children>
-               </VBox>
-            </children></AnchorPane>
-      </left>
-   </BorderPane>
+                        <graphic>
+                            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../../Images/consumer.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Pane prefHeight="173.0" prefWidth="210.0">
+                        <Label fx:id="exitBtn" layoutX="14.0" layoutY="110.0" prefHeight="59.0" prefWidth="170.0"
+                               styleClass="nav-btn" text="EXIT" textFill="#171616">
+                            <graphic>
+                                <ImageView fitHeight="50.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../../../Images/exit-icon-png-close-0.png"/>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font name="System Bold" size="40.0"/>
+                            </font>
+                        </Label>
+                    </Pane>
+                </VBox>
+            </AnchorPane>
+        </left>
+        <center>
+            <Pane prefHeight="200.0" prefWidth="676.0" styleClass="white-bg" stylesheets="@Style.css"
+                  BorderPane.alignment="CENTER">
+                <TableView layoutX="25.0" prefHeight="455.0" prefWidth="640.0">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="C1"/>
+                        <TableColumn prefWidth="75.0" text="C2"/>
+                    </columns>
+                </TableView>
+                <AnchorPane fx:id="shoppingCartMenu" layoutX="440.0" prefHeight="470.0" prefWidth="250.0"
+                            styleClass="nav-form" stylesheets="@Style.css"/>
+            </Pane>
+        </center>
+    </BorderPane>
 </AnchorPane>
