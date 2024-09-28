@@ -4,9 +4,9 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -19,98 +19,57 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
-    private TableView<?> biroterapiyaTable;
+    private Button btnAddProduct, btnDeleteProduct, btnHome, btnSend;
 
     @FXML
-    private Button btnAddProduct;
+    private ImageView btnExit, btnMin;
 
     @FXML
-    private Button btnBiroterapiya;
-
-    @FXML
-    private Button btnConsumer;
-
-    @FXML
-    private Button btnDeleteProduct;
-
-    @FXML
-    private ImageView btnExit;
-
-    @FXML
-    private Button btnHome;
-
-    @FXML
-    private ImageView btnMin;
-
-    @FXML
-    private Button btnSend;
-
-    @FXML
-    private Button btnVedena;
-
-    @FXML
-    private Label cardMenuClose;
-
-    @FXML
-    private Label cardMenuOpen;
-
-    @FXML
-    private TableView<?> consumerTable;
-
-    @FXML
-    private Label exitBtn;
+    private Label cardMenuClose, cardMenuOpen, exitBtn, productCounter;
 
     @FXML
     private BorderPane mainPanel;
 
     @FXML
-    private Label productCounter;
-
-    @FXML
     private AnchorPane shoppingCartMenu;
 
-    @FXML
-    private TableView<?> vedenaTable;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        closeAction();
-        minimizeAction();
+        addCloseActionOnNode(btnExit);
+        addCloseActionOnNode(exitBtn);
+        addMinimizeActionToElement(btnMin);
+
         setSlideActionOnShoppingCartMenu();
     }
 
-    public void closeAction() {
-        btnExit.setOnMouseClicked(mouseEvent -> {
-            System.exit(0);
-        });
-        exitBtn.setOnMouseClicked(event -> {
-            System.exit(0);
-        });
+    private void addCloseActionOnNode(Node node) {
+        node.setOnMouseClicked(mouseEvent -> System.exit(0));
     }
 
-    public void minimizeAction() {
-        btnMin.setOnMouseClicked(mouseEvent -> {
+    private void addMinimizeActionToElement(Node node) {
+        node.setOnMouseClicked(mouseEvent -> {
             Stage stage = (Stage) mainPanel.getScene().getWindow();
             stage.setIconified(true);
         });
     }
 
-    public void setSlideActionOnShoppingCartMenu() {
+    private void setSlideActionOnShoppingCartMenu() {
         shoppingCartMenu.setTranslateX(250);
 
-        setSlideAction(cardMenuOpen, 0, 250, cardMenuClose);
-        setSlideAction(cardMenuClose, 250, 0, cardMenuOpen);
+        setSlideAction(0, 250, cardMenuOpen, cardMenuClose);
+        setSlideAction(250, 0, cardMenuClose, cardMenuOpen);
     }
 
-    public void setSlideAction(Label currentMenu, int transSlideX, int transX, Label otherMenu) {
+    private void setSlideAction(int slideX, int shoppingCartMenuX, Label currentMenu, Label otherMenu) {
         currentMenu.setOnMouseClicked(click -> {
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
             slide.setNode(shoppingCartMenu);
 
-            slide.setToX(transSlideX);
+            slide.setToX(slideX);
             slide.play();
 
-            shoppingCartMenu.setTranslateX(transX);
+            shoppingCartMenu.setTranslateX(shoppingCartMenuX);
 
             slide.setOnFinished((ActionEvent e) -> {
                 currentMenu.setVisible(false);
