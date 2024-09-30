@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="580.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.Controller">
+<AnchorPane prefHeight="580.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.MainController">
     <BorderPane fx:id="mainPanel" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <top>
             <AnchorPane prefHeight="110.0" prefWidth="900.0" style="-fx-background-color: #e6ffff;" BorderPane.alignment="CENTER">
@@ -93,7 +93,7 @@
         <left>
             <AnchorPane prefHeight="470.0" prefWidth="210.0" styleClass="nav-form" stylesheets="@../../style/Style.css" BorderPane.alignment="CENTER">
                 <VBox layoutX="55.0" layoutY="135.0" prefHeight="420.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    <Button fx:id="btnHome" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="HOME" textFill="WHITE">
+                    <Button fx:id="btnHome" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="HOME" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="19.0" />
                         </font>
@@ -103,7 +103,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="btnVedena" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="216.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="VEDENA" textFill="WHITE">
+                    <Button fx:id="btnVedena" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchForm" prefHeight="60.0" prefWidth="216.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="VEDENA" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="19.0" />
                         </font>
@@ -113,7 +113,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="btnBiroterapiya" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="BIROTERAPIYA" textFill="WHITE">
+                    <Button fx:id="btnBiroterapiya" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="BIROTERAPIYA" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="19.0" />
                         </font>
@@ -123,7 +123,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="btnConsumer" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="CONSUMER" textFill="WHITE">
+                    <Button fx:id="btnConsumer" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="CONSUMER" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="19.0" />
                         </font>
@@ -150,16 +150,14 @@
         </left>
         <center>
             <Pane prefHeight="200.0" prefWidth="676.0" style="-fx-background-color: #9e9e9e;" styleClass="white-bg" stylesheets="@../../style/Style.css" BorderPane.alignment="CENTER">
-            <ImageView fx:id="homePage" fitHeight="460.0" fitWidth="560.0" layoutX="115.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/cooldown.png" />
-               </image>
-            </ImageView>
-                <TableView fx:id="vedenaTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0" visible="false">
+                <ImageView fx:id="homePage" fitHeight="460.0" fitWidth="560.0" layoutX="115.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../images/cooldown.png" />
+                </ImageView>
+                <TableView fx:id="vedenaTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0">
                     <columns>
                         <TableColumn fx:id="vedenaProductName" prefWidth="222.0" text="Product Name" />
                         <TableColumn fx:id="vedenaPrice" minWidth="0.0" prefWidth="150.0" text="Price" />
-                        <TableColumn fx:id="vedenaSelet" prefWidth="139.0" text="Select" />
+                        <TableColumn fx:id="vedenaSelected" prefWidth="139.0" text="Select" />
                         <TableColumn fx:id="vedenaImperative" prefWidth="128.0" text="Imperative" />
                         <TableColumn fx:id="vedenaType" minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
@@ -168,7 +166,7 @@
                     <columns>
                         <TableColumn fx:id="biroterapiyaName" prefWidth="222.0" text="Product Name" />
                         <TableColumn fx:id="biroterapiyaPrice" minWidth="0.0" prefWidth="150.0" text="Price" />
-                        <TableColumn fx:id="biroterapiyaSelect" prefWidth="139.0" text="Select" />
+                        <TableColumn fx:id="biroterapiyaSelected" prefWidth="139.0" text="Select" />
                         <TableColumn fx:id="biroterapiyaImperative" prefWidth="128.0" text="Imperative" />
                         <TableColumn fx:id="biroterapiyaType" minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
@@ -177,12 +175,20 @@
                     <columns>
                         <TableColumn fx:id="consumerName" prefWidth="222.0" text="Product Name" />
                         <TableColumn fx:id="consumerPrice" minWidth="0.0" prefWidth="150.0" text="Price" />
-                        <TableColumn fx:id="consumerSelect" prefWidth="139.0" text="Select" />
+                        <TableColumn fx:id="consumerSelected" prefWidth="139.0" text="Select" />
                         <TableColumn fx:id="consumerImperative" prefWidth="128.0" text="Imperative" />
                         <TableColumn fx:id="consumerType" minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
                 </TableView>
-                <AnchorPane fx:id="shoppingCartMenu" layoutX="440.0" prefHeight="470.0" prefWidth="250.0" styleClass="nav-form" stylesheets="@../../style/Style.css" />
+                <AnchorPane fx:id="shoppingCartMenu" layoutX="440.0" prefHeight="470.0" prefWidth="250.0" styleClass="nav-form" stylesheets="@../../style/Style.css">
+                    <TableView fx:id="requestTable" layoutX="13.0" layoutY="13.0" prefHeight="445.0" prefWidth="225.0">
+                        <columns>
+                            <TableColumn fx:id="name" prefWidth="75.0" text="Name" />
+                            <TableColumn fx:id="quantity" prefWidth="75.0" text="Quantity" />
+                            <TableColumn fx:id="delete" prefWidth="75.0" text="Delete " />
+                        </columns>
+                    </TableView>
+                </AnchorPane>
             </Pane>
         </center>
     </BorderPane>
