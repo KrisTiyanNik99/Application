@@ -14,6 +14,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import com.example.data_models.table_models.models.ConsumerTableView?>
+<?import com.example.data_models.table_models.models.BiroterapiyaTableView?>
+<?import com.example.data_models.table_models.models.VedenaTableView?>
+
 <AnchorPane prefHeight="580.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.MainController">
     <BorderPane fx:id="mainPanel" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <top>
@@ -150,10 +154,10 @@
         </left>
         <center>
             <Pane prefHeight="200.0" prefWidth="676.0" style="-fx-background-color: #9e9e9e;" styleClass="white-bg" stylesheets="@../../style/Style.css" BorderPane.alignment="CENTER">
-                <ImageView fx:id="homePage" fitHeight="460.0" fitWidth="560.0" layoutX="115.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="460.0" fitWidth="560.0" layoutX="115.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../../../images/cooldown.png" />
                 </ImageView>
-                <TableView fx:id="vedenaTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0">
+                <VedenaTableView fx:id="vedenaTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0">
                     <columns>
                         <TableColumn fx:id="vedenaProductName" prefWidth="222.0" text="Product Name" />
                         <TableColumn fx:id="vedenaPrice" minWidth="0.0" prefWidth="150.0" text="Price" />
@@ -161,8 +165,8 @@
                         <TableColumn fx:id="vedenaImperative" prefWidth="128.0" text="Imperative" />
                         <TableColumn fx:id="vedenaType" minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
-                </TableView>
-                <TableView fx:id="biroterapiyaTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0" visible="false">
+                </VedenaTableView>
+                <BiroterapiyaTableView fx:id="biroterapiyaTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0" visible="false">
                     <columns>
                         <TableColumn fx:id="biroterapiyaName" prefWidth="222.0" text="Product Name" />
                         <TableColumn fx:id="biroterapiyaPrice" minWidth="0.0" prefWidth="150.0" text="Price" />
@@ -170,8 +174,8 @@
                         <TableColumn fx:id="biroterapiyaImperative" prefWidth="128.0" text="Imperative" />
                         <TableColumn fx:id="biroterapiyaType" minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
-                </TableView>
-                <TableView fx:id="consumerTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0" visible="false">
+                </BiroterapiyaTableView>
+                <ConsumerTableView fx:id="consumerTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0" visible="false">
                     <columns>
                         <TableColumn fx:id="consumerName" prefWidth="222.0" text="Product Name" />
                         <TableColumn fx:id="consumerPrice" minWidth="0.0" prefWidth="150.0" text="Price" />
@@ -179,7 +183,7 @@
                         <TableColumn fx:id="consumerImperative" prefWidth="128.0" text="Imperative" />
                         <TableColumn fx:id="consumerType" minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
-                </TableView>
+                </ConsumerTableView>
                 <AnchorPane fx:id="shoppingCartMenu" layoutX="440.0" prefHeight="470.0" prefWidth="250.0" styleClass="nav-form" stylesheets="@../../style/Style.css">
                     <TableView fx:id="requestTable" layoutX="13.0" layoutY="13.0" prefHeight="445.0" prefWidth="225.0">
                         <columns>

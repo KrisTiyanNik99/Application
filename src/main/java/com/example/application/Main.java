@@ -13,14 +13,18 @@ public class Main extends javafx.application.Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainView.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 900, 580);
-        stage.setTitle("Request App");
         stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
+        setOptions(stage);
         stage.show();
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    private void setOptions(Stage stage) {
+        stage.setTitle("Request App");
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
     }
 }
