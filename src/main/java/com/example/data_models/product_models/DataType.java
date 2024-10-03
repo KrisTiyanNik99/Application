@@ -1,4 +1,4 @@
-package com.example.data_models;
+package com.example.data_models.product_models;
 
 public enum DataType {
     VEDENA,

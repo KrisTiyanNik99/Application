@@ -1,6 +1,7 @@
 package com.example.application;
 
-import com.example.data_models.Product;
+import com.example.data_models.product_models.Product;
+import com.example.data_models.table_models.DeliveryTableView;
 import com.example.data_models.table_models.MainTableView;
 import com.example.data_models.table_models.models.BiroterapiyaTableView;
 import com.example.data_models.table_models.models.ConsumerTableView;
@@ -58,23 +59,17 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane shoppingCartMenu;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setupActions();
-        initializeTables();
-        setSlideActionOnShoppingCartMenu();
-    }
-
+    // NOT FINISHHHHHHHHHH
     public void switchForm(ActionEvent event) {
         if (event.getSource() == btnHome) {
-            for (Map.Entry<Button, MainTableView> btv : initMapButtonsToTables().entrySet()) {
+            for (Map.Entry<Button, DeliveryTableView> btv : initMapButtonsToTables().entrySet()) {
                 btv.getValue().setVisible(false);
             }
 
             return;
         }
 
-        for (Map.Entry<Button, MainTableView> kvp : initMapButtonsToTables().entrySet()) {
+        for (Map.Entry<Button, DeliveryTableView> kvp : initMapButtonsToTables().entrySet()) {
             if (event.getSource() == kvp.getKey()) {
 
                 System.out.println(kvp.getKey().getText());
@@ -98,9 +93,12 @@ public class MainController implements Initializable {
         }
     }
 
-    private void initializeTables() {
-        //linkTableColumnsToProduct();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupActions();
+        setSlideActionOnShoppingCartMenu();
     }
+
     private void setupActions() {
         addCloseActionToNode(btnExit);
         addCloseActionToNode(exitBtn);
@@ -151,9 +149,9 @@ public class MainController implements Initializable {
     }
 
     // A method by which we connect the desired button with table that we want to appear when it is pressed
-    private Map<Button, MainTableView> initMapButtonsToTables() {
-        // We add exactly this table with which we want to associate the button we press
-        Map<Button, MainTableView> mapButtonsToTables = new HashMap<>();
+    private Map<Button, DeliveryTableView> initMapButtonsToTables() {
+        // We add exactly this table with which we want to associate the button we press on the left menu
+        Map<Button, DeliveryTableView> mapButtonsToTables = new HashMap<>();
 
         mapButtonsToTables.put(btnVedena, vedenaTable);
         mapButtonsToTables.put(btnBiroterapiya, biroterapiyaTable);

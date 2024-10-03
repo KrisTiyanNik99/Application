@@ -21,9 +21,16 @@
             <version>21-ea+5</version>
         </dependency>
         <dependency>
+            <!-- Json lib -->
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20231013</version>
+            <version>20240303</version>
+        </dependency>
+        <dependency>
+            <!-- Reflection lib -->
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.12</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>

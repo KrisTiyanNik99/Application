@@ -1,0 +1,149 @@
+{
+  "products": [
+    {
+      "name": "Каса Фанта портокал",
+      "price": 18.5,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Швепс сода",
+      "price": 18.5,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Швепс розов тоник",
+      "price": 27.35,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Швепс битер лимон",
+      "price": 27.36,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Спрайт",
+      "price": 26.55,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Студен чай",
+      "price": 27.89,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Капи зелена ябълка",
+      "price": 27.9,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Капи праскова",
+      "price": 27.9,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Капи портокал",
+      "price": 27.9,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Стек Вода банкя",
+      "price": 9.13,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Стек Кола",
+      "price": 17.49,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Стек Банкя 0.5л",
+      "price": 9.14,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Стек Банкя 1.5л",
+      "price": 5.56,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Монстър Зелен",
+      "price": 2.14,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Монстър Зиро Ултра",
+      "price": 2.14,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Бекс",
+      "price": 30.56,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Стела",
+      "price": 36.04,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Каса Старопраме",
+      "price": 32.47,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Лефе Светло сетк x12",
+      "price": 34.37,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Корона стек x6",
+      "price": 13.81,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Хогардън стек x12",
+      "price": 34.37,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Джеймисън",
+      "price": 38.14,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Текила Хосе куерво Силвър",
+      "price": 45.41,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Джин Бифитър Пинк",
+      "price": 22.56,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Ром Малибу",
+      "price": 31.6,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Водка Абсолют син",
+      "price": 24.42,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Ликьор Бейлис",
+      "price": 43.87,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Гренадин",
+      "price": 5.45,
+      "type": "VEDENA"
+    },
+    {
+      "name": "Вила Юстина Червено",
+      "price": 12.91,
+      "type": "VEDENA"
+    }
+  ]
+}

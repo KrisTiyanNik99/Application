@@ -1,4 +1,4 @@
-package com.example.data_models;
+package com.example.data_models.product_models;
 
 import javafx.scene.control.CheckBox;
 
@@ -43,9 +43,5 @@ public abstract class Product {
 
     public DataType getType() {
         return type;
-    }
-
-    public void setType(DataType type) {
-        this.type = type;
     }
 }
