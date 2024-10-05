@@ -11,10 +11,11 @@ public abstract class Product {
     private DataType type;
 
     public Product(String name, double price, DataType type) {
-        this.name = name;
-        this.price = price;
+        setName(name);
+        setPrice(price);
         this.selected = new CheckBox();
         this.imperative = new CheckBox();
+        this.type = type;
     }
 
     public String getName() {
@@ -22,7 +23,11 @@ public abstract class Product {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name.isEmpty()) {
+            this.name = "Unknown Product Name";
+        } else {
+            this.name = name;
+        }
     }
 
     public double getPrice() {
@@ -30,7 +35,7 @@ public abstract class Product {
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.price = Math.max(price, 0);
     }
 
     public int getQuantity() {
@@ -38,7 +43,7 @@ public abstract class Product {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        this.quantity = Math.max(quantity, 0);
     }
 
     public DataType getType() {

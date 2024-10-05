@@ -5,6 +5,6 @@ import com.example.data_models.table_models.DeliveryTableView;
 public class VedenaTableView extends DeliveryTableView {
     @Override
     protected String getFilePath() {
-        return null;
+        return "vedena.json";
     }
 }

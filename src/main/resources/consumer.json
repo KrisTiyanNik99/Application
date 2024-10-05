@@ -1,0 +1,10 @@
+{
+  "products": [
+    {
+      "name": "Кърпи за ръце",
+      "price": 5.12,
+      "quantity": 1,
+      "type": "CONSUMER"
+    }
+  ]
+}

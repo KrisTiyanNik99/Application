@@ -1,6 +1,8 @@
 package com.example.data_models.table_models;
 
+import com.data_maneger.ProductFactory;
 import com.data_maneger.JsonParser;
+import com.example.data_models.product_models.DataType;
 import com.example.data_models.product_models.Product;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,56 +10,60 @@ import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class DeliveryTableView extends MainTableView implements JsonParser {
+public abstract class DeliveryTableView extends MainTableView {
     @Override
     public void getInformationForDisplay() {
         String filePath = getFilePath();
+        List<Product> products = getProductsFromDataFile(filePath);
     }
 
-    @Override
-    public List<Product> readProductsFromJson(String filePath) {
-        List<Product> products = new ArrayList<>();
+    protected List<Product> getProductsFromDataFile(String filePath) {
+        /*
+            We make a basic implementation of this method that retrieves information from json files, because we want
+            all tables that will appear in this menu to keep their information in such an extension. If information is
+            to be retrieved from a file with a different extension than json, the entire method must be overridden.
+         */
 
-        try (InputStream in = Files.newInputStream(Paths.get(filePath))) {
-            JSONTokener tokener = new JSONTokener(in);
-            JSONObject jsonObject = new JSONObject(tokener);
+        List<Product> productsList = new ArrayList<>();
 
-            JSONArray jsonArray = findJsonArray(jsonObject);
-            for (int i = 0; i < jsonArray.length(); i++) {
+//
+//        try (InputStream in = Files.newInputStream(Paths.get(filePath))) {
+//            JSONTokener tokenizer = new JSONTokener(in);
+//            JSONObject jsonObject = new JSONObject(tokenizer);
+//
+//            JSONArray jsonArray = findJsonArray(jsonObject);
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                JSONObject jsonData = jsonArray.getJSONObject(i);
+//
+//                List<Object> jsonDataFields = parseJsonFields(jsonData);
+//                DataType type = DataType.parseDataType(jsonData.getString("type"));
+//                productsList.add(ProductFactory.createProductFromJsonData(jsonDataFields, type));
+//            }
+//        } catch (NullPointerException e) {
+//            e.printStackTrace();
+//        } catch (IOException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+//            throw new RuntimeException(e);
+//        }
 
-            }
-            //List<Object> jsonFields = parseJsonFields(jsonArray);
-
-            //products = getProductsFromJsonFile();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return products;
+        return productsList;
     }
 
-    @Override
-    public JSONArray findJsonArray(JSONObject jsonObject) {
-        Iterator<String> keys = jsonObject.keys();
-
-        while (keys.hasNext()) {
-            String key = keys.next();
-
-            if (jsonObject.get(key) instanceof JSONArray) {
-                return jsonObject.getJSONArray(key);
-            }
-        }
-
-        return null;
-    }
+//    @Override
+//    public List<Object> getJsonFields(JSONObject jsonData) {
+//
+//        String name = jsonData.getString("name");
+//        double price = jsonData.getDouble("price");
+//
+//        return Arrays.asList(name, price);
+//    }
 
     protected abstract String getFilePath();
 }

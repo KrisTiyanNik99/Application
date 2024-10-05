@@ -99,17 +99,17 @@ public class MainController implements Initializable {
         setSlideActionOnShoppingCartMenu();
     }
 
-    private void setupActions() {
-        addCloseActionToNode(btnExit);
-        addCloseActionToNode(exitBtn);
-        addMinimizeActionToElement(btnMin);
-    }
-
     // NOT FINISHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
     private void linkTableColumnsToProduct() {
         //for () {
             // Да измисля програмка която да срявнява 2 стринга и да прави нещо за да може да сравни имената на колоната с тези на продукта
         //}
+    }
+
+    private void setupActions() {
+        addCloseActionToNode(btnExit);
+        addCloseActionToNode(exitBtn);
+        addMinimizeActionToElement(btnMin);
     }
 
     private void addCloseActionToNode(Node node) {

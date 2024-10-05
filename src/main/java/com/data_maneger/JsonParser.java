@@ -7,6 +7,9 @@ import org.json.JSONObject;
 import java.util.List;
 
 public interface JsonParser {
-    List<Product> readProductsFromJson(String filePath);
+    JSONObject getJsonFileObject(String fileName);
     JSONArray findJsonArray(JSONObject jsonObject);
+    String readJsonFile(String fileName);
+    List<String> getJsonFields(JSONObject jsonData);
+    Object mapJsonFieldsToValues();
 }
