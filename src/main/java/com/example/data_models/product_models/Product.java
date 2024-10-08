@@ -13,8 +13,8 @@ public abstract class Product {
     public Product(String name, double price, DataType type) {
         setName(name);
         setPrice(price);
-        this.selected = new CheckBox();
-        this.imperative = new CheckBox();
+        //this.selected = new CheckBox();
+        //this.imperative = new CheckBox();
         this.type = type;
     }
 
@@ -48,5 +48,14 @@ public abstract class Product {
 
     public DataType getType() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder();
+        text.append("Name: ").append(name).append(System.lineSeparator());
+        text.append("Price: ").append(price).append(System.lineSeparator());
+        text.append("Quantity: ").append(quantity).append(System.lineSeparator());
+        return text.toString();
     }
 }

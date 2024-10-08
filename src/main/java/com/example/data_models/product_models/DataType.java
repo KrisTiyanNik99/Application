@@ -3,7 +3,7 @@ package com.example.data_models.product_models;
 public enum DataType {
     VEDENA,
     BIROTERAPIYA,
-    CONSUMMER;
+    CONSUMER;
 
     public static DataType parseDataType(String type) {
         checkForEmptyValue(type);

@@ -21,11 +21,11 @@ import java.util.List;
 public abstract class DeliveryTableView extends MainTableView {
     @Override
     public void getInformationForDisplay() {
-        String filePath = getFilePath();
-        List<Product> products = getProductsFromDataFile(filePath);
+        String fileName = getFilePath();
+        List<Product> products = getProductsFromDataFile(fileName);
     }
 
-    protected List<Product> getProductsFromDataFile(String filePath) {
+    protected List<Product> getProductsFromDataFile(String fileName) {
         /*
             We make a basic implementation of this method that retrieves information from json files, because we want
             all tables that will appear in this menu to keep their information in such an extension. If information is
