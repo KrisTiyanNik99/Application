@@ -25,11 +25,12 @@ public class JsonDataManager implements JsonParser {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
+            // ALL json file will have and must have a parameter with name "type"
             DataType classType = DataType.valueOf(jsonObject.getString("type"));
-            List<Object> jsonValues = getJsonValuesByType(jsonObject, classType);
+            List<Object> values = getJsonValues(jsonObject, classType);
 
             try {
-                Product product = ProductFactory.createProductObject(classType, jsonValues);
+                Product product = ProductFactory.createProductObject(classType, values);
                 products.add(product);
             } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);
@@ -126,7 +127,7 @@ public class JsonDataManager implements JsonParser {
         throw new IllegalArgumentException("Array was not  found!");
     }
 
-    private List<Object> getJsonValuesByType(JSONObject productJson, DataType type) {
+    private List<Object> getJsonValues(JSONObject productJson, DataType type) {
         List<Object> convertedParameters = new ArrayList<>();
 
         List<String> classParameters = ProductFactory.getConstructorClassParametersNames(type);

@@ -4,7 +4,7 @@ import com.example.data_models.table_models.DeliveryTableView;
 
 public class BiroterapiyaTableView extends DeliveryTableView {
     @Override
-    protected String getFilePath() {
+    protected String getFileName() {
         return "biroterapiya.json";
     }
 }

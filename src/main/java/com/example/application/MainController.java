@@ -2,12 +2,10 @@ package com.example.application;
 
 import com.example.data_models.product_models.Product;
 import com.example.data_models.table_models.DeliveryTableView;
-import com.example.data_models.table_models.MainTableView;
 import com.example.data_models.table_models.models.BiroterapiyaTableView;
 import com.example.data_models.table_models.models.ConsumerTableView;
 import com.example.data_models.table_models.models.VedenaTableView;
 import javafx.animation.TranslateTransition;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,22 +72,15 @@ public class MainController implements Initializable {
 
                 System.out.println(kvp.getKey().getText());
 
-                MainTableView test = kvp.getValue();
+                /////////////////////////////////////////////////////////
+                DeliveryTableView test = kvp.getValue();
                 test.setVisible(true);
-                testMethod(test);
-                // showTableInfo();
+                List<String> names = test.getColumnNames();
+                names.forEach(System.out::println);
+                ///////////////////////////////////////////////////////
             }else {
                 kvp.getValue().setVisible(false);
             }
-        }
-    }
-
-    // TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-    private void testMethod(MainTableView test) {
-        ObservableList<TableColumn<Product, ?>> testList = test.getColumns();
-        System.out.println(testList.size());
-        for (TableColumn<Product, ?> productTableColumn : testList) {
-            System.out.println(productTableColumn.getText());
         }
     }
 
@@ -99,20 +90,13 @@ public class MainController implements Initializable {
         setSlideActionOnShoppingCartMenu();
     }
 
-    // NOT FINISHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-    private void linkTableColumnsToProduct() {
-        //for () {
-            // Да измисля програмка която да срявнява 2 стринга и да прави нещо за да може да сравни имената на колоната с тези на продукта
-        //}
-    }
-
     private void setupActions() {
-        addCloseActionToNode(btnExit);
-        addCloseActionToNode(exitBtn);
+        addCloseActionToElement(btnExit);
+        addCloseActionToElement(exitBtn);
         addMinimizeActionToElement(btnMin);
     }
 
-    private void addCloseActionToNode(Node node) {
+    private void addCloseActionToElement(Node node) {
         node.setOnMouseClicked(mouseEvent -> System.exit(0));
     }
 
