@@ -16,6 +16,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+import static com.data_maneger.ProductFactory.getClassByType;
+
 public class JsonDataManager implements JsonParser {
 
     public List<Product> getProductsFromJsonFile(String fileName) {
@@ -30,7 +32,7 @@ public class JsonDataManager implements JsonParser {
             List<Object> values = getJsonValues(jsonObject, classType);
 
             try {
-                Product product = ProductFactory.createProductObject(classType, values);
+                Product product = ProductFactory.createProductObject(getClassByType(classType), values);
                 products.add(product);
             } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);
@@ -48,7 +50,6 @@ public class JsonDataManager implements JsonParser {
          */
 
         URL resource = getClass().getClassLoader().getResource(fileName);
-
         if (resource == null) {
             throw new IllegalArgumentException("File not found: " + fileName);
         }
@@ -131,7 +132,7 @@ public class JsonDataManager implements JsonParser {
         List<Object> convertedParameters = new ArrayList<>();
 
         List<String> classParameters = ProductFactory.getConstructorClassParametersNames(type);
-        List<String> jsonParametersNames = getJsonParametersNames(productJson);
+        List<String> jsonParameters = getJsonParametersNames(productJson);
         /*
             The reason we need these nested loops (validation) is because when I get the json parameter names, they are
             saved in inconsistent order. We also need a counter to check how many matches there are between the
@@ -142,7 +143,7 @@ public class JsonDataManager implements JsonParser {
 
         int parameterMatch = 0;
         for (String parameterName : classParameters) {
-            for (String jsonParametersName : jsonParametersNames) {
+            for (String jsonParametersName : jsonParameters) {
                 if (parameterName.equalsIgnoreCase(jsonParametersName)) {
                     parameterMatch++;
 

@@ -1,6 +1,7 @@
 package com.data_maneger;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 import java.util.*;
@@ -18,9 +19,8 @@ public class ProductFactory {
         parsing.
      */
 
-    public static <T extends Product> T createProductObject(DataType type, List<Object> elements) throws InvocationTargetException,
+    public static <T extends Product> T createProductObject(Class<?> clazz, List<Object> elements) throws InvocationTargetException,
             InstantiationException, IllegalAccessException {
-        Class<?> clazz = getClassByType(type);
         Constructor<?>[] constructors = clazz.getConstructors();
         /*
             Since we may have more than one constructor in the future, we want to be able to dynamically create an
@@ -56,7 +56,28 @@ public class ProductFactory {
         return Collections.unmodifiableList(parameterNames);
     }
 
-    private static Class<?> getClassByType(DataType classType) {
+    public static List<String> getAllDeclaredFieldsNames(Class<?> productClass) {
+        /*
+            Any field names that possibly overlap in the parent and child classes will be fetched once. Avoids errors
+            where in the parent class the field that matches that of the successor is redefined and possible data
+            confusion occurs.
+         */
+
+        List<String> allClassFieldsNames = new ArrayList<>();
+
+        while (productClass != null && productClass != Object.class) {
+            Field[] fields = productClass.getDeclaredFields();
+            for (Field field : fields) {
+                allClassFieldsNames.add(field.getName());
+            }
+
+            productClass = productClass.getSuperclass();
+        }
+
+        return Collections.unmodifiableList(allClassFieldsNames);
+    }
+
+    public static Class<?> getClassByType(DataType classType) {
         return switch (classType) {
             case VEDENA -> VedenaProduct.class;
             case CONSUMER -> ConsumerProduct.class;

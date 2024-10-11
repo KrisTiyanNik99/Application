@@ -6,14 +6,14 @@ public abstract class Product {
     private String name;
     private double price;
     private int quantity;
-    private CheckBox selected;
+    private CheckBox select;
     private CheckBox imperative;
     private DataType type;
 
     public Product(String name, double price, DataType type) {
         setName(name);
         setPrice(price);
-        this.selected = new CheckBox();
+        this.select = new CheckBox();
         this.imperative = new CheckBox();
         this.type = type;
     }
@@ -48,6 +48,22 @@ public abstract class Product {
 
     public DataType getType() {
         return type;
+    }
+
+    public CheckBox getSelect() {
+        return select;
+    }
+
+    public void setSelect(CheckBox select) {
+        this.select = select;
+    }
+
+    public CheckBox getImperative() {
+        return imperative;
+    }
+
+    public void setImperative(CheckBox imperative) {
+        this.imperative = imperative;
     }
 
     @Override

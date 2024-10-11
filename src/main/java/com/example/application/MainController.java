@@ -74,9 +74,8 @@ public class MainController implements Initializable {
 
                 /////////////////////////////////////////////////////////
                 DeliveryTableView test = kvp.getValue();
+                test.getInformationForDisplay();
                 test.setVisible(true);
-                List<String> names = test.getColumnNames();
-                names.forEach(System.out::println);
                 ///////////////////////////////////////////////////////
             }else {
                 kvp.getValue().setVisible(false);

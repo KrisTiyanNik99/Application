@@ -1,12 +1,14 @@
 package com.example.data_models.table_models;
 
 import com.data_maneger.JsonDataManager;
+import com.data_maneger.ProductFactory;
+import com.data_maneger.TableUtils;
 import com.example.data_models.product_models.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DeliveryTableView extends MainTableView {
@@ -17,17 +19,33 @@ public abstract class DeliveryTableView extends MainTableView {
             This is done in order to prevent errors that can occur when creating objects from the descendants
             of the Product class.
          */
+
         String fileName = getFileName();
         ObservableList<Product> products = getProductsFromDataFile(fileName);
 
+        List<String> classFieldsNames = ProductFactory.getAllDeclaredFieldsNames(TableUtils.checkClassType(products));
+        connectColumnsToClassFieldsByNames(classFieldsNames);
+        setItems(products);
     }
 
-    public List<String> getColumnNames() {
-        List<String> columnNames = new ArrayList<>();
-        ObservableList<TableColumn<Product, ?>> columns = getColumns();
-        columns.forEach(e -> columnNames.add(e.getText()));
+    protected void connectColumnsToClassFieldsByNames(List<String> classFieldsNames) {
+        /*
+            A method that associates table columns with class fields based on column names. Column names must be the
+            same or have some common root or word in them. But the column names must be different from each other,
+            because the algorithm stops further searching at the first match of the searched parameter.
+         */
 
-        return columnNames;
+        for (TableColumn<Product, ?> column : getColumns()) {
+            String columnName = column.getText();
+
+            for (String classFieldName : classFieldsNames) {
+                if (columnName.toLowerCase().contains(classFieldName.toLowerCase())) {
+                    column.setCellValueFactory(new PropertyValueFactory<>(classFieldName));
+                    column.setResizable(false);
+                    break;
+                }
+            }
+        }
     }
 
     protected ObservableList<Product> getProductsFromDataFile(String fileName) {
@@ -36,9 +54,6 @@ public abstract class DeliveryTableView extends MainTableView {
 
         return FXCollections.observableArrayList(productsList);
     }
-
-    // Метод който взима имената на параметрите на класа
-    // Метод който взима имената на всички колони и има слага sellValueFactory според имената на параметрите в класа
 
     /*
         This method will be overridden in descendants. The idea is for successors to determine which table, what
