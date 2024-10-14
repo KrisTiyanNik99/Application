@@ -20,16 +20,17 @@ import static com.data_maneger.ProductFactory.getClassByType;
 
 public class JsonDataManager implements JsonParser {
 
+    @Override
     public List<Product> getProductsFromJsonFile(String fileName) {
         JSONArray jsonArray = findJsonArray(getJsonFileObject(fileName));
-
         List<Product> products = new ArrayList<>();
+
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONObject productJsonObject = jsonArray.getJSONObject(i);
 
             // ALL json file will have and must have a parameter with name "type"
-            DataType classType = DataType.valueOf(jsonObject.getString("type"));
-            List<Object> values = getJsonValues(jsonObject, classType);
+            DataType classType = DataType.valueOf(productJsonObject.getString("type").toUpperCase());
+            List<Object> values = getJsonValues(productJsonObject, classType);
 
             try {
                 Product product = ProductFactory.createProductObject(getClassByType(classType), values);
@@ -87,6 +88,27 @@ public class JsonDataManager implements JsonParser {
         return Collections.unmodifiableList(fieldNames);
     }
 
+    @Override
+    public JSONArray findJsonArray(JSONObject jsonObject) {
+        /*
+            All json files must follow the same structure (have one array and store the units in it). For this
+            reason, in this method it is set at the moment when 1 array is found to stop the search. This is done
+            to avoid exceptions and errors in the program.
+         */
+
+        Iterator<String> keys = jsonObject.keys();
+
+        while (keys.hasNext()) {
+            String key = keys.next();
+
+            if (jsonObject.get(key) instanceof JSONArray) {
+                return jsonObject.getJSONArray(key);
+            }
+        }
+
+        throw new IllegalArgumentException("Array was not found!");
+    }
+
     private static Object convertJsonParameterToValue(String jsonParameterName) {
 
         // This method need update but for now is good enough
@@ -109,30 +131,11 @@ public class JsonDataManager implements JsonParser {
         }
     }
 
-    private static JSONArray findJsonArray(JSONObject jsonObject) {
-        /*
-            All json files must follow the same structure (have one array and store the units in it). For this
-            reason, in this method it is set at the moment when 1 array is found to stop the search. This is done
-            to avoid exceptions and errors in the program.
-         */
-        Iterator<String> keys = jsonObject.keys();
-
-        while (keys.hasNext()) {
-            String key = keys.next();
-
-            if (jsonObject.get(key) instanceof JSONArray) {
-                return jsonObject.getJSONArray(key);
-            }
-        }
-
-        throw new IllegalArgumentException("Array was not  found!");
-    }
-
-    private List<Object> getJsonValues(JSONObject productJson, DataType type) {
+    private List<Object> getJsonValues(JSONObject productJsonObj, DataType type) {
         List<Object> convertedParameters = new ArrayList<>();
 
         List<String> classParameters = ProductFactory.getConstructorClassParametersNames(type);
-        List<String> jsonParameters = getJsonParametersNames(productJson);
+        List<String> jsonParameters = getJsonParametersNames(productJsonObj);
         /*
             The reason we need these nested loops (validation) is because when I get the json parameter names, they are
             saved in inconsistent order. We also need a counter to check how many matches there are between the
@@ -147,8 +150,9 @@ public class JsonDataManager implements JsonParser {
                 if (parameterName.equalsIgnoreCase(jsonParametersName)) {
                     parameterMatch++;
 
-                    String jsonParameterValue = productJson.get(jsonParametersName).toString();
+                    String jsonParameterValue = productJsonObj.get(jsonParametersName).toString();
                     convertedParameters.add(convertJsonParameterToValue(jsonParameterValue));
+                    break;
                 }
             }
         }

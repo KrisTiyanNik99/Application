@@ -2,17 +2,13 @@ package com.example.application;
 
 import com.example.data_models.product_models.Product;
 import com.example.data_models.table_models.DeliveryTableView;
-import com.example.data_models.table_models.models.BiroterapiyaTableView;
-import com.example.data_models.table_models.models.ConsumerTableView;
-import com.example.data_models.table_models.models.VedenaTableView;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -31,22 +27,16 @@ public class MainController implements Initializable {
     private ImageView btnExit, btnMin;
 
     @FXML
-    private VedenaTableView vedenaTable;
+    private DeliveryTableView mainTable;
 
     @FXML
-    private BiroterapiyaTableView biroterapiyaTable;
+    private TableView<Product> requestTable;
 
     @FXML
-    private ConsumerTableView consumerTable;
+    private TableColumn<Product, ?> name, price;
 
     @FXML
-    private TableColumn<Product, ?> vedenaProductName, vedenaPrice, vedenaSelected, vedenaImperative, vedenaType;
-
-    @FXML
-    private TableColumn<Product, ?> biroterapiyaName, biroterapiyaPrice, biroterapiyaSelected, biroterapiyaImperative, biroterapiyaType;
-
-    @FXML
-    private TableColumn<Product, ?> consumerName, consumerPrice, consumerSelected, consumerImperative, consumerType;
+    private TableColumn<Product, Double> quantity;
 
     @FXML
     private Label cardMenuClose, cardMenuOpen, exitBtn, productCounter;
@@ -57,28 +47,19 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane shoppingCartMenu;
 
-    // NOT FINISHHHHHHHHHH
-    public void switchForm(ActionEvent event) {
+    public void switchInformationForm(ActionEvent event) {
         if (event.getSource() == btnHome) {
-            for (Map.Entry<Button, DeliveryTableView> btv : initMapButtonsToTables().entrySet()) {
-                btv.getValue().setVisible(false);
-            }
-
+            mainTable.setVisible(false);
             return;
         }
 
-        for (Map.Entry<Button, DeliveryTableView> kvp : initMapButtonsToTables().entrySet()) {
+        for (Map.Entry<Button, String> kvp : initMapButtonsToFileInfo().entrySet()) {
             if (event.getSource() == kvp.getKey()) {
 
-                System.out.println(kvp.getKey().getText());
-
-                /////////////////////////////////////////////////////////
-                DeliveryTableView test = kvp.getValue();
-                test.getInformationForDisplay();
-                test.setVisible(true);
-                ///////////////////////////////////////////////////////
-            }else {
-                kvp.getValue().setVisible(false);
+                String fileName = kvp.getValue();
+                mainTable.getInformationForDisplay(fileName);
+                setCheckBoxActions(mainTable);
+                mainTable.setVisible(true);
             }
         }
     }
@@ -86,6 +67,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupActions();
+        setUpRequestColumns();
         setSlideActionOnShoppingCartMenu();
     }
 
@@ -93,6 +75,11 @@ public class MainController implements Initializable {
         addCloseActionToElement(btnExit);
         addCloseActionToElement(exitBtn);
         addMinimizeActionToElement(btnMin);
+    }
+
+    private void setUpRequestColumns() {
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        price.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     private void addCloseActionToElement(Node node) {
@@ -131,14 +118,45 @@ public class MainController implements Initializable {
         });
     }
 
-    // A method by which we connect the desired button with table that we want to appear when it is pressed
-    private Map<Button, DeliveryTableView> initMapButtonsToTables() {
-        // We add exactly this table with which we want to associate the button we press on the left menu
-        Map<Button, DeliveryTableView> mapButtonsToTables = new HashMap<>();
+    private void setCheckBoxActions(DeliveryTableView table) {
+        for (Product product : table.getItems()) {
+            CheckBox selected = product.getSelect();
+            CheckBox imperative = product.getImperative();
 
-        mapButtonsToTables.put(btnVedena, vedenaTable);
-        mapButtonsToTables.put(btnBiroterapiya, biroterapiyaTable);
-        mapButtonsToTables.put(btnConsumer, consumerTable);
+            setAddActionEvents(selected, product);
+            setAddActionEvents(imperative, product);
+        }
+    }
+
+    private void setAddActionEvents(CheckBox box, Product product) {
+        box.setOnAction(event -> {
+            int productNum = Integer.parseInt(productCounter.getText());
+
+            if (box.isSelected()) {
+                boolean productExists = requestTable.getItems().stream()
+                        .anyMatch(existingProduct -> existingProduct.getName().equals(product.getName()));
+
+                if (!productExists) {
+                    productNum++;
+                    requestTable.getItems().add(product);
+                }
+            } else {
+                productNum--;
+                requestTable.getItems().removeIf(existingProduct -> existingProduct.getName().equals(product.getName()));
+            }
+
+            productCounter.setText(String.valueOf(productNum));
+        });
+    }
+
+    // A method by which we connect the desired button with file that we want to extract info when it is pressed
+    private Map<Button, String> initMapButtonsToFileInfo() {
+        // We add exactly this file with which we want to associate the button we press on the left menu
+        Map<Button, String> mapButtonsToTables = new HashMap<>();
+
+        mapButtonsToTables.put(btnVedena, "vedena.json");
+        mapButtonsToTables.put(btnBiroterapiya, "biroterapiya.json");
+        mapButtonsToTables.put(btnConsumer, "consumer.json");
 
         return mapButtonsToTables;
     }

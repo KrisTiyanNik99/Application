@@ -98,16 +98,16 @@ public class ProductFactory {
         Constructor<?> mainConstructor = null;
 
         for (Constructor<?> constructor : constructors) {
-            int constructorArguments = constructor.getParameterCount();
+            int constructorArgumentsNumber = constructor.getParameterCount();
 
-            if (argumentsNumber > constructorArguments) {
-                argumentsNumber = constructorArguments;
+            if (argumentsNumber > constructorArgumentsNumber) {
+                argumentsNumber = constructorArgumentsNumber;
                 mainConstructor = constructor;
             }
         }
 
         if (mainConstructor == null) {
-            throw new IllegalArgumentException("No needed constructor is found.");
+            throw new IllegalArgumentException("No matching constructor is found.");
         }
 
         return mainConstructor;
