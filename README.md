@@ -56,8 +56,10 @@ Maven Dependencies:
 * Creating a new class inheriting from Product.
 * Adding the new type to the DataType enum.
 * Creating a corresponding JSON file.
-### 2. Enhanced JSON Parsing: The method for converting JSON parameters to appropriate object types (convertJsonParameterToValue) could be extended for more complex data types.
-### 3. More Table Views and Data Types: In the future, additional views or data types can be incorporated into the UI and handled dynamically by leveraging the existing DeliveryTableView and JsonDataManager.
+### 2. Enhanced JSON Parsing: 
+The method for converting JSON parameters to appropriate object types (convertJsonParameterToValue) could be extended for more complex data types.
+### 3. More Table Views and Data Types: 
+In the future, additional views or data types can be incorporated into the UI and handled dynamically by leveraging the existing DeliveryTableView and JsonDataManager.
 
 ## Conclusion
 This application offers a flexible, scalable framework for managing products from JSON data in a JavaFX table view. Its core strength lies in its use of reflection for dynamic object creation, ensuring future extensibility. The combination of JSON for data storage and JavaFX for the user interface makes this a powerful tool for managing various types of products efficiently.
