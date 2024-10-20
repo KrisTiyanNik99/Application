@@ -39,15 +39,28 @@
                             </ImageView>
                         </graphic>
                         <HBox.margin>
-                            <Insets right="15.0" />
+                            <Insets right="20.0" />
                         </HBox.margin>
                     </Button>
-                    <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #e6ffff;" text="ADD PRODUCT">
+                    <Button fx:id="btnSave" mnemonicParsing="false" prefHeight="70.0" prefWidth="100" style="-fx-background-color: #e6ffff" text="SAVE">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                        <graphic>
+                            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../../images/save.png" />
+                            </ImageView>
+                        </graphic>
+                        <HBox.margin>
+                            <Insets right="10.0" />
+                        </HBox.margin>
+                    </Button>
+                    <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="140.0" style="-fx-background-color: #e6ffff;" text="ADD">
                         <font>
                             <Font name="System Bold" size="16.0" />
                         </font>
                         <HBox.margin>
-                            <Insets right="15.0" />
+                            <Insets right="10.0" />
                         </HBox.margin>
                         <graphic>
                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -55,12 +68,12 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="btnDeleteProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #e6ffff;" text="DELETE PRODUCT">
+                    <Button fx:id="btnDeleteProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" style="-fx-background-color: #e6ffff;" text="DELETE">
                         <font>
                             <Font name="System Bold" size="16.0" />
                         </font>
                         <HBox.margin>
-                            <Insets right="15.0" />
+                            <Insets right="10.0" />
                         </HBox.margin>
                         <graphic>
                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -160,7 +173,7 @@
                         <TableColumn prefWidth="222.0" text="Product Name" />
                         <TableColumn minWidth="0.0" prefWidth="150.0" text="Price" />
                         <TableColumn prefWidth="139.0" text="Select" />
-                        <TableColumn prefWidth="128.0" text="Imperative" />
+                        <TableColumn prefWidth="128.0" text="Description" />
                         <TableColumn minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
                 </DeliveryTableView>
@@ -169,7 +182,6 @@
                         <columns>
                             <TableColumn fx:id="name" prefWidth="95.0" text="Name" />
                             <SpinnerTableColumn fx:id="quantity" prefWidth="75.0" text="Quantity" />
-                            <TableColumn fx:id="price" prefWidth="55.0" text="Price " />
                         </columns>
                     </TableView>
                 </AnchorPane>

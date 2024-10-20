@@ -13,17 +13,30 @@ public class SpinnerTableColumn extends TableColumn<Product, Integer> {
 
     private TableCell<Product, Integer> createSpinnerCell() {
         return new TableCell<>() {
-            private final Spinner<Integer> spinner = new Spinner<>(0, 100, 0);
+            private final Spinner<Integer> spinner = new Spinner<>(1, 100, 0);
 
             {
                 spinner.setEditable(true);
+
+                 spinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                     if (getTableRow() != null && getTableRow().getItem() != null) {
+                         Product product = getTableRow().getItem();
+                         product.setQuantity(newValue);
+                     }
+                 });
+
+                spinner.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                    if (!isNowFocused) {
+                        commitEdit(spinner.getValue());
+                    }
+                });
             }
 
             @Override
             protected void updateItem(Integer item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (empty) {
+                if (empty || getTableRow() == null || getTableRow().getItem() == null) {
                     setGraphic(null);
                 } else {
                     spinner.getValueFactory().setValue(item != null ? item : 0);
@@ -34,7 +47,9 @@ public class SpinnerTableColumn extends TableColumn<Product, Integer> {
             @Override
             public void commitEdit(Integer newValue) {
                 super.commitEdit(newValue);
-                getTableView().getItems().get(getIndex()).setQuantity(newValue);
+                if (getTableRow() != null && getTableRow().getItem() != null) {
+                    getTableRow().getItem().setQuantity(newValue);
+                }
             }
         };
     }

@@ -2,9 +2,8 @@ package com.example.data_models.table_models;
 
 import com.data_maneger.JsonDataManager;
 import com.data_maneger.ProductFactory;
-import com.data_maneger.TableUtils;
+import com.data_maneger.FunctionManager;
 import com.example.data_models.product_models.Product;
-import com.example.data_models.table_models.MainTableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -23,9 +22,17 @@ public class DeliveryTableView extends MainTableView {
 
         ObservableList<Product> products = getProductsFromDataFile(fileName);
 
-        List<String> classFieldsNames = ProductFactory.getAllDeclaredFieldsNames(TableUtils.checkClassType(products));
+        List<String> classFieldsNames = ProductFactory.getAllDeclaredFieldsNames(FunctionManager.checkTableClassType(products));
         connectColumnsToClassFieldsByNames(classFieldsNames);
         setItems(products);
+    }
+
+    public void getInformationForDisplay(List<Product> products) {
+        ObservableList<Product> obsProducts = FXCollections.observableArrayList(products);
+
+        List<String> classFieldsNames = ProductFactory.getAllDeclaredFieldsNames(FunctionManager.checkTableClassType(obsProducts));
+        connectColumnsToClassFieldsByNames(classFieldsNames);
+        setItems(obsProducts);
     }
 
     private void connectColumnsToClassFieldsByNames(List<String> classFieldsNames) {

@@ -29,7 +29,7 @@ public class JsonDataManager implements JsonParser {
             JSONObject productJsonObject = jsonArray.getJSONObject(i);
 
             // ALL json file will have and must have a parameter with name "type"
-            DataType classType = DataType.valueOf(productJsonObject.getString("type").toUpperCase());
+            DataType classType = DataType.parseDataType(productJsonObject.getString("type"));
             List<Object> values = getJsonValues(productJsonObject, classType);
 
             try {
@@ -97,7 +97,6 @@ public class JsonDataManager implements JsonParser {
          */
 
         Iterator<String> keys = jsonObject.keys();
-
         while (keys.hasNext()) {
             String key = keys.next();
 
@@ -145,6 +144,7 @@ public class JsonDataManager implements JsonParser {
          */
 
         int parameterMatch = 0;
+        // We can make this with functional programming but for now this is readable
         for (String parameterName : classParameters) {
             for (String jsonParametersName : jsonParameters) {
                 if (parameterName.equalsIgnoreCase(jsonParametersName)) {

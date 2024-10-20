@@ -133,12 +133,12 @@
     {
       "name": "Ликьор Бейлис",
       "price": 43.87,
-      "type": "VEDENA"
+      "type": "VeDeNa"
     },
     {
       "name": "Гренадин",
       "price": 5.45,
-      "type": "VEDENA"
+      "type": "vedena"
     },
     {
       "name": "Вила Юстина Червено",

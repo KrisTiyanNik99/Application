@@ -1,23 +1,20 @@
 package com.example.data_models.product_models;
 
 public enum DataType {
-    VEDENA,
-    BIROTERAPIYA,
-    CONSUMER;
+    VEDENA("vedena.json"),
+    BIROTERAPIYA("biroterapiya.json"),
+    CONSUMER("consumer.json");
 
-    public static DataType parseDataType(String type) {
-        checkForEmptyValue(type);
-
-        try {
-            return DataType.valueOf(type.trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Unknown DataType: " + type);
-        }
+    private final String fileName;
+    DataType(String fileName) {
+        this.fileName = fileName;
     }
 
-    private static void checkForEmptyValue(String type) {
-        if (type == null || type.isEmpty()) {
-            throw new IllegalArgumentException("Invalid DataType: null or empty");
-        }
+    public static DataType parseDataType(String dataType) {
+        return DataType.valueOf(dataType.toUpperCase());
+    }
+
+    public String getFileDirectory() {
+        return fileName;
     }
 }
