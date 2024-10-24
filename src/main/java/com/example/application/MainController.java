@@ -33,7 +33,7 @@ public class MainController implements Initializable {
     private TableView<Product> requestTable;
 
     @FXML
-    private TableColumn<Product, ?> name, price;
+    private TableColumn<Product, ?> name;
 
     @FXML
     private SpinnerTableColumn quantity;
@@ -75,6 +75,10 @@ public class MainController implements Initializable {
                 break;
             }
         }
+    }
+
+    public void addProductActionToElement(ActionEvent event) {
+        FunctionManager.addAction();
     }
 
     @Override

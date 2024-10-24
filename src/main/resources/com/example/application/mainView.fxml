@@ -55,7 +55,8 @@
                             <Insets right="10.0" />
                         </HBox.margin>
                     </Button>
-                    <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="140.0" style="-fx-background-color: #e6ffff;" text="ADD">
+                    <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="140.0" style="-fx-background-color: #e6ffff;"
+                            onAction="#addProductActionToElement" text="ADD">
                         <font>
                             <Font name="System Bold" size="16.0" />
                         </font>
@@ -180,7 +181,7 @@
                 <AnchorPane fx:id="shoppingCartMenu" layoutX="440.0" prefHeight="470.0" prefWidth="250.0" styleClass="nav-form" stylesheets="@../../style/Style.css">
                     <TableView fx:id="requestTable" layoutX="13.0" layoutY="13.0" prefHeight="445.0" prefWidth="225.0">
                         <columns>
-                            <TableColumn fx:id="name" prefWidth="95.0" text="Name" />
+                            <TableColumn fx:id="name" prefWidth="150.0" text="Name" />
                             <SpinnerTableColumn fx:id="quantity" prefWidth="75.0" text="Quantity" />
                         </columns>
                     </TableView>

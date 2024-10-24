@@ -67,11 +67,11 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder();
-        text.append(quantity).append("x ").append(name).append(System.lineSeparator());
-        text.append("Price: ").append(price).append(" leva.");
-        text.append("----------------------------------------------------#");
-        text.append(System.lineSeparator());
-        return text.toString();
+        StringBuilder prodctText = new StringBuilder();
+        prodctText.append(quantity).append("x ").append(name).append(System.lineSeparator());
+        prodctText.append("Price: ").append(price).append(" leva.");
+        prodctText.append("----------------------------------------------------#");
+        prodctText.append(System.lineSeparator());
+        return prodctText.toString();
     }
 }

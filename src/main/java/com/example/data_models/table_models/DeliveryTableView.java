@@ -1,6 +1,7 @@
 package com.example.data_models.table_models;
 
 import com.data_maneger.JsonDataManager;
+import com.data_maneger.JsonParser;
 import com.data_maneger.ProductFactory;
 import com.data_maneger.FunctionManager;
 import com.example.data_models.product_models.Product;
@@ -14,23 +15,25 @@ import java.util.List;
 public class DeliveryTableView extends MainTableView {
     @Override
     public void getInformationForDisplay(String fileName) {
+        JsonParser jsonData = new JsonDataManager();
         /*
             The methods in this class create objects based on the information from the file that is submitted.
             This is done in order to prevent errors that can occur when creating objects from the descendants
             of the Product class.
          */
 
-        ObservableList<Product> products = getProductsFromDataFile(fileName);
-
+        List<Product> productsList = jsonData.getProductsFromJsonFile(fileName);
+        ObservableList<Product> products = FXCollections.observableArrayList(productsList);
         List<String> classFieldsNames = ProductFactory.getAllDeclaredFieldsNames(FunctionManager.checkTableClassType(products));
+
         connectColumnsToClassFieldsByNames(classFieldsNames);
         setItems(products);
     }
 
     public void getInformationForDisplay(List<Product> products) {
         ObservableList<Product> obsProducts = FXCollections.observableArrayList(products);
-
         List<String> classFieldsNames = ProductFactory.getAllDeclaredFieldsNames(FunctionManager.checkTableClassType(obsProducts));
+
         connectColumnsToClassFieldsByNames(classFieldsNames);
         setItems(obsProducts);
     }
@@ -53,12 +56,5 @@ public class DeliveryTableView extends MainTableView {
                 }
             }
         }
-    }
-
-    private ObservableList<Product> getProductsFromDataFile(String fileName) {
-        JsonDataManager jsonData = new JsonDataManager();
-        List<Product> productsList = jsonData.getProductsFromJsonFile(fileName);
-
-        return FXCollections.observableArrayList(productsList);
     }
 }
