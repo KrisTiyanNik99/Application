@@ -55,7 +55,7 @@
                             <Insets right="10.0" />
                         </HBox.margin>
                     </Button>
-                    <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="70.0" prefWidth="140.0" style="-fx-background-color: #e6ffff;"
+                    <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="140.0" style="-fx-background-color: #e6ffff;"
                             onAction="#addProductActionToElement" text="ADD">
                         <font>
                             <Font name="System Bold" size="16.0" />
@@ -107,9 +107,9 @@
             </AnchorPane>
         </top>
         <left>
-            <AnchorPane prefHeight="470.0" prefWidth="210.0" styleClass="nav-form" stylesheets="@../../style/Style.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="470.0" prefWidth="210.0" styleClass="nav-form" stylesheets="@../../style/style.css" BorderPane.alignment="CENTER">
                 <VBox layoutX="55.0" layoutY="135.0" prefHeight="420.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    <Button fx:id="btnHome" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchInformationForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="HOME" textFill="WHITE">
+                    <Button fx:id="btnHome" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchInformationForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/style.css" text="HOME" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="19.0" />
                         </font>
@@ -119,7 +119,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="btnVedena" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchInformationForm" prefHeight="60.0" prefWidth="216.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="VEDENA" textFill="WHITE">
+                    <Button fx:id="btnVedena" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchInformationForm" prefHeight="60.0" prefWidth="216.0" styleClass="nav-btn" stylesheets="@../../style/style.css" text="VEDENA" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="19.0" />
                         </font>
@@ -129,7 +129,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="btnBiroterapiya" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchInformationForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="BIROTERAPIYA" textFill="WHITE">
+                    <Button fx:id="btnBiroterapiya" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchInformationForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/style.css" text="BIROTERAPIYA" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="19.0" />
                         </font>
@@ -139,7 +139,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="btnConsumer" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchInformationForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/Style.css" text="CONSUMER" textFill="WHITE">
+                    <Button fx:id="btnConsumer" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchInformationForm" prefHeight="60.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../style/style.css" text="CONSUMER" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="19.0" />
                         </font>
@@ -165,7 +165,7 @@
             </AnchorPane>
         </left>
         <center>
-            <Pane prefHeight="200.0" prefWidth="676.0" style="-fx-background-color: #9e9e9e;" styleClass="white-bg" stylesheets="@../../style/Style.css" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="676.0" style="-fx-background-color: #9e9e9e;" styleClass="white-bg" stylesheets="@../../style/style.css" BorderPane.alignment="CENTER">
                 <ImageView fitHeight="460.0" fitWidth="560.0" layoutX="115.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../../../images/cooldown.png" />
                 </ImageView>
@@ -178,7 +178,7 @@
                         <TableColumn minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
                 </DeliveryTableView>
-                <AnchorPane fx:id="shoppingCartMenu" layoutX="440.0" prefHeight="470.0" prefWidth="250.0" styleClass="nav-form" stylesheets="@../../style/Style.css">
+                <AnchorPane fx:id="shoppingCartMenu" layoutX="440.0" prefHeight="470.0" prefWidth="250.0" styleClass="nav-form" stylesheets="@../../style/style.css">
                     <TableView fx:id="requestTable" layoutX="13.0" layoutY="13.0" prefHeight="445.0" prefWidth="225.0">
                         <columns>
                             <TableColumn fx:id="name" prefWidth="150.0" text="Name" />

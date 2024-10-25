@@ -21,7 +21,7 @@ import java.util.*;
 public class MainController implements Initializable {
 
     @FXML
-    private Button btnAddProduct, btnDeleteProduct, btnSend, btnSave, btnHome, btnVedena, btnBiroterapiya, btnConsumer;
+    private Button btnDeleteProduct, btnSend, btnSave, btnHome, btnVedena, btnBiroterapiya, btnConsumer;
 
     @FXML
     private ImageView btnExit, btnMin;
@@ -78,7 +78,7 @@ public class MainController implements Initializable {
     }
 
     public void addProductActionToElement(ActionEvent event) {
-        FunctionManager.addAction();
+        FunctionManager.addActionToProductForm((Node) event.getSource());
     }
 
     @Override
@@ -146,9 +146,9 @@ public class MainController implements Initializable {
          */
         Map<Button, String> mapButtonsToTables = new HashMap<>();
 
-        mapButtonsToTables.put(btnVedena, "vedena.json");
-        mapButtonsToTables.put(btnBiroterapiya, "biroterapiya.json");
-        mapButtonsToTables.put(btnConsumer, "consumer.json");
+        mapButtonsToTables.put(btnVedena, "com/data/vedena.json");
+        mapButtonsToTables.put(btnBiroterapiya, "com/data/biroterapiya.json");
+        mapButtonsToTables.put(btnConsumer, "com/data/consumer.json");
 
         return mapButtonsToTables;
     }

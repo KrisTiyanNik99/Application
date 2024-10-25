@@ -7,14 +7,15 @@ public abstract class Product {
     private double price;
     private int quantity;
     private CheckBox select;
-    private String description = "Empty";
-    private DataType type;
+    private String description;
+    private final DataType type;
 
-    public Product(String name, double price, DataType type) {
+    public Product(String name, double price, DataType type, String description) {
         setName(name);
         setPrice(price);
         select = new CheckBox();
         this.type = type;
+        setDescription(description);
     }
 
     public String getName() {
@@ -37,10 +38,6 @@ public abstract class Product {
         this.price = Math.max(price, 0);
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
     public void setQuantity(int quantity) {
         this.quantity = Math.max(quantity, 0);
     }
@@ -53,25 +50,38 @@ public abstract class Product {
         return select;
     }
 
-    public void setSelect(boolean b) {
-        this.select.setSelected(b);
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
+        if (description.isBlank() || description.isEmpty()) {
+            this.description = "Empty";
+            return;
+        }
+
         this.description = description;
+    }
+
+    public String toJsonFileFormat() {
+        StringBuilder productJsonText = new StringBuilder();
+        productJsonText.append("{ ").append("\"name\": ").append("\"").append(getName()).append("\",");
+        productJsonText.append("\"price\": ").append("\"").append(getPrice()).append("\",");
+        productJsonText.append("\"type\": ").append("\"").append(getType()).append("\",");
+        productJsonText.append("\"description\": ").append("\"").append(getDescription()).append("\"").append(" }");
+
+        return productJsonText.toString();
     }
 
     @Override
     public String toString() {
-        StringBuilder prodctText = new StringBuilder();
-        prodctText.append(quantity).append("x ").append(name).append(System.lineSeparator());
-        prodctText.append("Price: ").append(price).append(" leva.");
-        prodctText.append("----------------------------------------------------#");
-        prodctText.append(System.lineSeparator());
-        return prodctText.toString();
+        StringBuilder productText = new StringBuilder();
+        productText.append(quantity).append("x ").append(name).append(System.lineSeparator());
+        productText.append("Price: ").append(price).append(" leva.");
+        productText.append("----------------------------------------------------#");
+        productText.append(System.lineSeparator());
+        productText.append("=================================================================#");
+        productText.append(System.lineSeparator());
+        return productText.toString();
     }
 }

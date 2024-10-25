@@ -11,4 +11,6 @@ public interface JsonParser {
     JSONObject getJsonFileObject(String fileName);
     JSONArray findJsonArray(JSONObject jsonObject);
     List<String> getJsonParametersNames(JSONObject jsonParamObj);
+
+    void saveInfoToJsonFile(String newData, String fileName);
 }

@@ -1,9 +1,9 @@
 package com.example.data_models.product_models;
 
 public enum DataType {
-    VEDENA("vedena.json"),
-    BIROTERAPIYA("biroterapiya.json"),
-    CONSUMER("consumer.json");
+    VEDENA("com/data/vedena.json"),
+    BIROTERAPIYA("com/data/biroterapiya.json"),
+    CONSUMER("com/data/consumer.json");
 
     private final String fileName;
     DataType(String fileName) {

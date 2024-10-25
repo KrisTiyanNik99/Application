@@ -9,8 +9,6 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,6 +20,7 @@ public class JsonDataManager implements JsonParser {
 
     @Override
     public List<Product> getProductsFromJsonFile(String fileName) {
+
         JSONArray jsonArray = findJsonArray(getJsonFileObject(fileName));
         List<Product> products = new ArrayList<>();
 
@@ -50,19 +49,21 @@ public class JsonDataManager implements JsonParser {
             folder along with the field names, values, parentheses and commas as JsonObject.
          */
 
-        URL resource = getClass().getClassLoader().getResource(fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("File not found: " + fileName);
-        }
+        String directory = "E:\\Request App\\Application\\src\\main\\java\\" + fileName;
 
         try {
-            Path path = Paths.get(resource.toURI());
+            Path path = Paths.get(directory);
+
+            if (!Files.exists(path)) {
+                throw new IllegalArgumentException("File not found: " + directory);
+            }
+
             InputStream in = Files.newInputStream(path);
 
             JSONTokener token = new JSONTokener(in);
 
             return new JSONObject(token);
-        } catch (URISyntaxException | IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -86,6 +87,25 @@ public class JsonDataManager implements JsonParser {
         }
 
         return Collections.unmodifiableList(fieldNames);
+    }
+
+    @Override
+    public void saveInfoToJsonFile(String newData, String fileName) {
+        String resourceDir = "E:\\Request App\\Application\\src\\main\\java\\" + fileName;
+
+        JSONObject jsonFileObj = getJsonFileObject(fileName);
+        JSONArray arr = findJsonArray(jsonFileObj);
+
+        JSONObject jsonObj = new JSONObject(newData);
+
+        arr.put(jsonObj);
+
+        Path path = Paths.get(resourceDir);
+        try {
+            Files.write(path, jsonFileObj.toString(5).getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot write in the file!");
+        }
     }
 
     @Override
@@ -131,10 +151,11 @@ public class JsonDataManager implements JsonParser {
     }
 
     private List<Object> getJsonValues(JSONObject productJsonObj, DataType type) {
+
         List<Object> convertedParameters = new ArrayList<>();
 
-        List<String> classParameters = ProductFactory.getConstructorClassParametersNames(type);
         List<String> jsonParameters = getJsonParametersNames(productJsonObj);
+        List<String> classParameters = ProductFactory.getConstructorClassParametersNames(type);
         /*
             The reason we need these nested loops (validation) is because when I get the json parameter names, they are
             saved in inconsistent order. We also need a counter to check how many matches there are between the
@@ -158,7 +179,7 @@ public class JsonDataManager implements JsonParser {
         }
 
         if (parameterMatch < classParameters.size()) {
-            throw new IllegalArgumentException("Invalid parameters in the json file!");
+            throw new IllegalArgumentException("Invalid or missing parameters in the json file!");
         }
 
         return Collections.unmodifiableList(convertedParameters);

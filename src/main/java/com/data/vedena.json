@@ -1,0 +1,184 @@
+{
+  "products": [
+    {
+      "name": "Каса Фанта портокал",
+      "price": 18.5,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Каса Фанта Лимон",
+      "price": 18.5,
+      "type": "VEDENA",
+      "description": ""
+    },
+    {
+      "name": "Каса Швепс сода",
+      "price": 18.5,
+      "type": "VEDENA",
+      "description": "Винаги зареждай!"
+    },
+    {
+      "name": "Каса Швепс розов тоник",
+      "price": 27.35,
+      "type": "VEDENA",
+      "description": "Основно го пият в коктейли, рядко си го взимат самостоятелно"
+    },
+    {
+      "name": "Каса Швепс битер лимон",
+      "price": 27.36,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Каса Спрайт",
+      "price": 26.55,
+      "type": "VEDENA",
+      "description": ""
+    },
+    {
+      "name": "Каса Студен чай",
+      "price": 27.89,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Каса Капи зелена ябълка",
+      "price": 27.9,
+      "type": "VEDENA",
+      "description": "Един от най- питите сокове"
+    },
+    {
+      "name": "Каса Капи праскова",
+      "price": 27.9,
+      "type": "VEDENA",
+      "description": "Рядко се зарежда, защото бавно се пие"
+    },
+    {
+      "name": "Каса Капи портокал",
+      "price": 27.9,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Стек Кола",
+      "price": 17.49,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Стек Банкя 0.5л",
+      "price": 9.14,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Стек Банкя 1.5л",
+      "price": 5.56,
+      "type": "VEDENA",
+      "description": "Само за персонала"
+    },
+    {
+      "name": "Монстър Зелен",
+      "price": 2.14,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Монстър Зиро Бял",
+      "price": 2.14,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Каса Бекс",
+      "price": 30.56,
+      "type": "VEDENA",
+      "description": "Винаги се следи защото е една от най- питите бири"
+    },
+    {
+      "name": "Каса Стела",
+      "price": 36.04,
+      "type": "VEDENA",
+      "description": "Най- питата бира"
+    },
+    {
+      "name": "Каса Старопраме",
+      "price": 32.47,
+      "type": "VEDENA",
+      "description": "Има два вида- Тъмен и светъл"
+    },
+    {
+      "name": "Лефе Светло сетк x12",
+      "price": 34.37,
+      "type": "VEDENA",
+      "description": "Основно зареждано от двете лефета"
+    },
+    {
+      "name": "Лефе Тъмно сетк x12",
+      "price": 34.37,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Корона стек x6",
+      "price": 13.81,
+      "type": "VEDENA",
+      "description": "Винаги се зарежда"
+    },
+    {
+      "name": "Хогардън стек x12",
+      "price": 34.37,
+      "type": "VEDENA",
+      "description": "Рядко зареждан"
+    },
+    {
+      "name": "Джеймисън",
+      "price": 38.14,
+      "type": "VEDENA",
+      "description": "Сред доста питите уискита"
+    },
+    {
+      "name": "Текила Хосе куерво Силвър",
+      "price": 45.41,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Джин Бифитър Пинк",
+      "price": 22.56,
+      "type": "VEDENA",
+      "description": "Пие се много от момичетата предимно"
+    },
+    {
+      "name": "Ром Малибу",
+      "price": 31.6,
+      "type": "VEDENA",
+      "description": "Empty"
+    },
+    {
+      "name": "Водка Абсолют син",
+      "price": 24.42,
+      "type": "VEDENA",
+      "description": "Доста я пият"
+    },
+    {
+      "name": "Ликьор Бейлис",
+      "price": 43.87,
+      "type": "VeDeNa",
+      "description": "Empty"
+    },
+    {
+      "name": "Гренадин",
+      "price": 5.45,
+      "type": "vedena",
+      "description": "Empty"
+    },
+    {
+      "name": "Вила Юстина Червено",
+      "price": 12.91,
+      "type": "VEDENA",
+      "description": "Използва се основно като награда за куиза"
+    }
+  ]
+}

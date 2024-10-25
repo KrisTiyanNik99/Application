@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.application.AddProductView"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="460.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.AddProductView">
+   <Label layoutX="37.0" layoutY="14.0" prefHeight="40.0" prefWidth="180.0" text="Product Name">
+      <font>
+         <Font name="System Bold" size="20.0" />
+      </font>
+   </Label>
+   <Label layoutX="37.0" layoutY="123.0" prefHeight="40.0" prefWidth="180.0" text="Product Price">
+      <font>
+         <Font name="System Bold" size="20.0" />
+      </font>
+   </Label>
+   <Label layoutX="37.0" layoutY="235.0" prefHeight="40.0" prefWidth="180.0" text="Product Type">
+      <font>
+         <Font name="System Bold" size="20.0" />
+      </font>
+   </Label>
+   <Label layoutX="41.0" layoutY="348.0" prefHeight="40.0" prefWidth="193.0" text="Product Description">
+      <font>
+         <Font name="System Bold" size="20.0" />
+      </font>
+   </Label>
+   <TextField fx:id="productName" layoutX="37.0" layoutY="54.0" prefHeight="40.0" prefWidth="200.0" promptText="NAME">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="productPrice" layoutX="37.0" layoutY="163.0" prefHeight="40.0" prefWidth="200.0" promptText="PRICE">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="productDescription" layoutX="38.0" layoutY="388.0" prefHeight="40.0" prefWidth="200.0" promptText="DESCRIPTION">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </TextField>
+   <Button fx:id="btnAddProduct" layoutX="476.0" layoutY="388.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" stylesheets="@../../style/button.css" text="ADD PRODUCT" textFill="WHITE" />
+   <ComboBox fx:id="productType" layoutX="38.0" layoutY="275.0" prefHeight="40.0" prefWidth="200.0" promptText="TYPE" />
+   <Button layoutX="476.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToTable" prefHeight="40.0" prefWidth="110.0" stylesheets="@../../style/button.css" text="CLOSE" textFill="WHITE" />
 </AnchorPane>

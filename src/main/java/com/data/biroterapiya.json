@@ -1,0 +1,26 @@
+{"products": [
+     {
+          "price": 5.12,
+          "name": "Кърпи за ръце",
+          "description": "",
+          "type": "biroterapiya"
+     },
+     {
+          "price": "11.11",
+          "name": "Test",
+          "description": "test1",
+          "type": "BIROTERAPIYA"
+     },
+     {
+          "price": "99.99",
+          "name": "test2",
+          "description": "test2",
+          "type": "BIROTERAPIYA"
+     },
+     {
+          "price": "45.33",
+          "name": "test3",
+          "description": "final test",
+          "type": "BIROTERAPIYA"
+     }
+]}
