@@ -1,26 +1,56 @@
 {"products": [
      {
-          "price": 5.12,
-          "name": "Кърпи за ръце",
-          "description": "",
-          "type": "biroterapiya"
-     },
-     {
-          "price": "11.11",
-          "name": "Test",
-          "description": "test1",
+          "price": "2.08",
+          "name": "БохемЪ Светло",
+          "description": "Венко много я пие",
           "type": "BIROTERAPIYA"
      },
      {
-          "price": "99.99",
-          "name": "test2",
-          "description": "test2",
+          "price": "2.28",
+          "name": "Шоферхофер Вайс",
+          "description": "Най- пития шофер",
           "type": "BIROTERAPIYA"
      },
      {
-          "price": "45.33",
-          "name": "test3",
-          "description": "final test",
+          "price": "1.57",
+          "name": "Шеферхофер грейпфрут",
+          "description": "Една от най- питите бири в бара",
+          "type": "BIROTERAPIYA"
+     },
+     {
+          "price": "1.49",
+          "name": "Клаусталер класик (оригинал)",
+          "description": "Empty",
+          "type": "BIROTERAPIYA"
+     },
+     {
+          "price": "1.49",
+          "name": "Клаусталер лимон ",
+          "description": "Проверявай осноно за нея! ",
+          "type": "BIROTERAPIYA"
+     },
+     {
+          "price": "3.49",
+          "name": "Бернард Суинг светло",
+          "description": "Empty",
+          "type": "BIROTERAPIYA"
+     },
+     {
+          "price": "3.49",
+          "name": "Бернард Суинг тъмна",
+          "description": "Empty",
+          "type": "BIROTERAPIYA"
+     },
+     {
+          "price": "88.33",
+          "name": "кег Приматор Инглиш ейл",
+          "description": "Често се поръчва",
+          "type": "BIROTERAPIYA"
+     },
+     {
+          "price": "3.32",
+          "name": "Чипс Роджърс",
+          "description": "Поръчвай ги като свършат!",
           "type": "BIROTERAPIYA"
      }
 ]}

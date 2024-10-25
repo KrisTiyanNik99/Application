@@ -41,7 +41,8 @@ public class AddProductView implements Initializable {
     private TextField productDescription;
 
     public void returnToTable(ActionEvent event) {
-        FunctionManager.addActionToTableForm((Node) event.getSource());
+        FunctionManager.switchSceneAction((Node) event.getSource(), "mainView.fxml",
+                "Request App", this.getClass());
     }
 
     @Override
@@ -70,11 +71,11 @@ public class AddProductView implements Initializable {
 
             if (checkBol) {
                 addProductToFile();
-                alertMessage("Successfully", "You successfully add a Product",
+                FunctionManager.alertMessage("Successfully", "You successfully add a Product",
                         "New Product is added to your table and file!", Alert.AlertType.INFORMATION);
             } else {
-                alertMessage("Missing info", "Please fill all fields",
-                        "Fill all fields with correct information", Alert.AlertType.INFORMATION);
+                FunctionManager.alertMessage("Missing info", "Please fill all fields",
+                        "Fill all fields with correct information", Alert.AlertType.WARNING);
             }
 
             productName.setText("");
@@ -111,11 +112,13 @@ public class AddProductView implements Initializable {
     private boolean checkForEnum(String dataType) {
         try {
             DataType.parseDataType(dataType);
+
             return true;
         } catch (NullPointerException e) {
-            alertMessage("Incorrect price", "Choose from the drop down menu some option!",
-                    "You need to select one oprion from the drop down menu which category will be the product.",
+            FunctionManager.alertMessage("Incorrect price", "Choose from the drop down menu some option!",
+                    "You need to select one option from the drop down menu which category will be the product.",
                     Alert.AlertType.WARNING);
+
             return false;
         }
     }
@@ -124,21 +127,14 @@ public class AddProductView implements Initializable {
 
         try {
             Double.parseDouble(prodPrice);
+
             return true;
         } catch (NumberFormatException e) {
-            alertMessage("Incorrect price", "The price is incorrect filled",
+            FunctionManager.alertMessage("Incorrect price", "The price is incorrect filled",
                     "The 'Product Price' field must be float(double) number who is separated with '.'!",
                     Alert.AlertType.WARNING);
+
             return false;
         }
-    }
-
-    private void alertMessage(String title, String headerText, String text, Alert.AlertType type) {
-        Alert invalid = new Alert(type);
-
-        invalid.setTitle(title);
-        invalid.setHeaderText(headerText);
-        invalid.setContentText(text);
-        invalid.showAndWait();
     }
 }

@@ -18,6 +18,8 @@ import static com.data_maneger.ProductFactory.getClassByType;
 
 public class JsonDataManager implements JsonParser {
 
+    private static final String RESOURCE_DIR = "E:\\Request App\\Application\\src\\main\\java\\";
+
     @Override
     public List<Product> getProductsFromJsonFile(String fileName) {
 
@@ -49,11 +51,10 @@ public class JsonDataManager implements JsonParser {
             folder along with the field names, values, parentheses and commas as JsonObject.
          */
 
-        String directory = "E:\\Request App\\Application\\src\\main\\java\\" + fileName;
+        String directory = RESOURCE_DIR + fileName;
+        Path path = Paths.get(directory);
 
         try {
-            Path path = Paths.get(directory);
-
             if (!Files.exists(path)) {
                 throw new IllegalArgumentException("File not found: " + directory);
             }
@@ -91,7 +92,7 @@ public class JsonDataManager implements JsonParser {
 
     @Override
     public void saveInfoToJsonFile(String newData, String fileName) {
-        String resourceDir = "E:\\Request App\\Application\\src\\main\\java\\" + fileName;
+        String resourceDir = RESOURCE_DIR + fileName;
 
         JSONObject jsonFileObj = getJsonFileObject(fileName);
         JSONArray arr = findJsonArray(jsonFileObj);
@@ -99,13 +100,22 @@ public class JsonDataManager implements JsonParser {
         JSONObject jsonObj = new JSONObject(newData);
 
         arr.put(jsonObj);
+        writeJsonFile(jsonFileObj, resourceDir);
+    }
 
-        Path path = Paths.get(resourceDir);
-        try {
-            Files.write(path, jsonFileObj.toString(5).getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot write in the file!");
+    @Override
+    public void saveInfoToJsonFile(List<Product> products, String fileName) {
+        String resourceDir = RESOURCE_DIR + fileName;
+
+        JSONObject root = new JSONObject();
+        JSONArray productsArray = new JSONArray();
+        for (Product p : products) {
+            JSONObject productJson = new JSONObject(p.toJsonFileFormat());
+            productsArray.put(productJson);
         }
+
+        root.put("products", productsArray);
+        writeJsonFile(root, resourceDir);
     }
 
     @Override
@@ -183,5 +193,14 @@ public class JsonDataManager implements JsonParser {
         }
 
         return Collections.unmodifiableList(convertedParameters);
+    }
+
+    private void writeJsonFile(JSONObject root, String resourceDir) {
+        Path path = Paths.get(resourceDir);
+        try {
+            Files.write(path, root.toString(5).getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot write in the file!");
+        }
     }
 }

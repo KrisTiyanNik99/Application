@@ -13,4 +13,5 @@ public interface JsonParser {
     List<String> getJsonParametersNames(JSONObject jsonParamObj);
 
     void saveInfoToJsonFile(String newData, String fileName);
+    void saveInfoToJsonFile(List<Product> products, String fileName);
 }

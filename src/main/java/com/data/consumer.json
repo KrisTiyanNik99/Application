@@ -1,32 +1,20 @@
 {"products": [
      {
-          "price": 3.12,
-          "name": "Кърпи за ръце",
-          "description": "",
+          "price": "12.34",
+          "name": "Test1",
+          "description": "debug test",
           "type": "CONSUMER"
      },
      {
-          "price": "12.22",
-          "name": "test1",
-          "description": "testconsumer",
+          "price": "99.99",
+          "name": "test2",
+          "description": "second debug test",
           "type": "CONSUMER"
      },
      {
-          "price": "1111.11",
-          "name": "test3",
-          "description": "final for today test",
-          "type": "CONSUMER"
-     },
-     {
-          "price": "11.11",
-          "name": "test4",
-          "description": "okey not is final test",
-          "type": "CONSUMER"
-     },
-     {
-          "price": "87.37",
-          "name": "test343",
-          "description": "this is for real real final test",
+          "price": "99.99",
+          "name": "test2",
+          "description": "second debug test",
           "type": "CONSUMER"
      }
 ]}

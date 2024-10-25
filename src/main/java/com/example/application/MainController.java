@@ -53,7 +53,8 @@ public class MainController implements Initializable {
 
     public void switchInformationForm(ActionEvent event) {
         if (event.getSource() == btnHome) {
-            mainTable.setVisible(false);
+            startHomePage();
+
             return;
         }
 
@@ -78,7 +79,8 @@ public class MainController implements Initializable {
     }
 
     public void addProductActionToElement(ActionEvent event) {
-        FunctionManager.addActionToProductForm((Node) event.getSource());
+        FunctionManager.switchSceneAction((Node) event.getSource(), "addProductView.fxml",
+                "Add Product", this.getClass());
     }
 
     @Override
@@ -89,6 +91,8 @@ public class MainController implements Initializable {
     }
 
     private void setupActions() {
+        startHomePage();
+
         addCloseActionToElement(btnExit);
         addCloseActionToElement(exitBtn);
 
@@ -97,12 +101,26 @@ public class MainController implements Initializable {
         addMinimizeActionToElement(btnMin);
     }
 
+    private void startHomePage() {
+        /*
+            This is in method because in future we don't know what kind of changes we want to do and this is the easiest
+            way to make dynamic changes in the whole code.
+        */
+
+        mainTable.setVisible(false);
+    }
+
     private void addCloseActionToElement(Node node) {
         node.setOnMouseClicked(mouseEvent -> System.exit(0));
     }
 
     private void addSaveActionToElement(Node element) {
-        element.setOnMouseClicked(mouseEvent -> FunctionManager.saveAction(mainTable));
+        element.setOnMouseClicked(mouseEvent -> {
+            FunctionManager.saveAction(mainTable, infoFileName);
+            mainTable.refresh();
+            FunctionManager.alertMessage("Save", "Table save.",
+                    "You successfully save your current state of the table!", Alert.AlertType.INFORMATION);
+        });
     }
 
     private void addDeleteActionToElement(Node element) {

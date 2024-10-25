@@ -1,7 +1,5 @@
 package com.data_maneger;
 
-import com.example.application.AddProductView;
-import com.example.application.MainController;
 import com.example.data_models.product_models.DataType;
 import com.example.data_models.product_models.Product;
 import com.example.data_models.table_models.DeliveryTableView;
@@ -12,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -30,8 +29,10 @@ public class FunctionManager {
         login in the code
      */
 
-    public static void saveAction(DeliveryTableView mainTable) {
-        
+    public static void saveAction(DeliveryTableView mainTable, String infoFileName) {
+        List<Product> products = mainTable.getItems();
+        JsonDataManager jsonManager = new JsonDataManager();
+        jsonManager.saveInfoToJsonFile(products, infoFileName);
     }
 
     public static void saveAction(Product product, String fileName) {
@@ -140,6 +141,15 @@ public class FunctionManager {
         return ProductFactory.getClassByType(classType);
     }
 
+    public static void alertMessage(String title, String headerText, String text, Alert.AlertType type) {
+        Alert invalid = new Alert(type);
+
+        invalid.setTitle(title);
+        invalid.setHeaderText(headerText);
+        invalid.setContentText(text);
+        invalid.showAndWait();
+    }
+
     public static double formatToTwoDecimalPlaces(String numberStr) {
         try {
             double number = Double.parseDouble(numberStr);
@@ -150,40 +160,22 @@ public class FunctionManager {
         }
     }
 
-    public static void addActionToProductForm(Node source) {
+    public static void switchSceneAction(Node source, String fileName, String stageName, Class<?> clazz) {
+
         Stage currentStage = (Stage) source.getScene().getWindow();
         currentStage.close();
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("/com/example/application/addProductView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(clazz.getResource("/com/example/application/" + fileName));
             Parent productView = fxmlLoader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Add Product");
-            stage.setScene(new Scene(productView));
-
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setResizable(false);
-            stage.show();
-        } catch (Exception e) {
-            throw new RuntimeException("No such scene is founded!");
-        }
-    }
-
-    public static void addActionToTableForm(Node source) {
-        Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close();
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(AddProductView.class.getResource("/com/example/application/mainView.fxml"));
-            Parent productView = fxmlLoader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Request App");
+            stage.setTitle(stageName);
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
 
             stage.setScene(new Scene(productView));
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (Exception e) {
             throw new RuntimeException("No such scene is founded!");

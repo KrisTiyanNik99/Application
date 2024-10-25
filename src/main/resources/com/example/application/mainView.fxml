@@ -171,10 +171,10 @@
                 </ImageView>
                 <DeliveryTableView fx:id="mainTable" layoutX="25.0" layoutY="13.0" prefHeight="444.0" prefWidth="640.0">
                     <columns>
-                        <TableColumn prefWidth="222.0" text="Product Name" />
-                        <TableColumn minWidth="0.0" prefWidth="150.0" text="Price" />
-                        <TableColumn prefWidth="139.0" text="Select" />
-                        <TableColumn prefWidth="128.0" text="Description" />
+                        <TableColumn prefWidth="210.0" text="Product Name" />
+                        <TableColumn minWidth="0.0" prefWidth="82.0" text="Price" />
+                        <TableColumn prefWidth="89.0" text="Select" />
+                        <TableColumn prefWidth="243.0" text="Description" />
                         <TableColumn minWidth="0.0" prefWidth="0.0" text="type" />
                     </columns>
                 </DeliveryTableView>
