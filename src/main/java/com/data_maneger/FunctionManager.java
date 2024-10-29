@@ -1,5 +1,6 @@
 package com.data_maneger;
 
+import com.data_maneger.json_manager.JsonDataManager;
 import com.example.data_models.product_models.DataType;
 import com.example.data_models.product_models.Product;
 import com.example.data_models.table_models.DeliveryTableView;
@@ -117,12 +118,7 @@ public class FunctionManager {
         });
     }
 
-    private static boolean checkForMatch(Product product, TableView<Product> requestTable) {
-
-        return requestTable.getItems().stream().anyMatch(p -> product.getName().equals(p.getName()));
-    }
-
-    public static Class<?> checkTableClassType(ObservableList<Product> products) {
+    public static Class<?> checkTableClassType(List<Product> products) {
         if (products.isEmpty()) {
             throw new IllegalArgumentException("The product list is empty!");
         }
@@ -130,8 +126,7 @@ public class FunctionManager {
         // We take from first element our DataType and check if all rest elements match it
         DataType classType = products.getFirst().getType();
 
-        boolean allMatch = products.stream()
-                .map(Product::getType)
+        boolean allMatch = products.stream().map(Product::getType)
                 .allMatch(type -> type.equals(classType));
 
         if (!allMatch) {
@@ -180,5 +175,10 @@ public class FunctionManager {
         } catch (Exception e) {
             throw new RuntimeException("No such scene is founded!");
         }
+    }
+
+    private static boolean checkForMatch(Product product, TableView<Product> requestTable) {
+
+        return requestTable.getItems().stream().anyMatch(p -> product.getName().equals(p.getName()));
     }
 }

@@ -1,20 +1,6 @@
-{"products": [
-     {
-          "price": "12.34",
-          "name": "Test1",
-          "description": "debug test",
-          "type": "CONSUMER"
-     },
-     {
-          "price": "99.99",
-          "name": "test2",
-          "description": "second debug test",
-          "type": "CONSUMER"
-     },
-     {
-          "price": "99.99",
-          "name": "test2",
-          "description": "second debug test",
-          "type": "CONSUMER"
-     }
-]}
+{"products": [{
+     "price": "12.34",
+     "name": "Test1",
+     "description": "debug test",
+     "type": "CONSUMER"
+}]}

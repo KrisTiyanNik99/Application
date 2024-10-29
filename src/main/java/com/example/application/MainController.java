@@ -1,6 +1,8 @@
 package com.example.application;
 
 import com.data_maneger.FunctionManager;
+import com.data_maneger.json_manager.JsonDataManager;
+import com.data_maneger.json_manager.JsonParser;
 import com.example.data_models.product_models.Product;
 import com.example.data_models.table_models.DeliveryTableView;
 import com.example.data_models.table_models.column_models.SpinnerTableColumn;
@@ -47,7 +49,7 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane shoppingCartMenu;
 
-    private Map<String, List<Product>> productDataByFile = new HashMap<>();
+    private final Map<String, List<Product>> productDataByFile = new HashMap<>();
 
     private static String infoFileName;
 
@@ -64,12 +66,11 @@ public class MainController implements Initializable {
                 String fileName = kvp.getValue();
                 infoFileName = fileName;
 
-                if (productDataByFile.containsKey(fileName)) {
-                    mainTable.getInformationForDisplay(productDataByFile.get(fileName));
-                } else {
-                    mainTable.getInformationForDisplay(fileName);
-                    productDataByFile.put(fileName, mainTable.getItems());
-                }
+                JsonParser jsonData = new JsonDataManager();
+                List<Product> productsList = jsonData.getProductsFromJsonFile(fileName);
+
+                productDataByFile.putIfAbsent(fileName, productsList);
+                mainTable.setupTableWithData(productDataByFile.get(fileName));
 
                 setCheckBoxActionToTableColumn(mainTable);
                 mainTable.setVisible(true);
