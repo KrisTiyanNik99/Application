@@ -1,8 +1,8 @@
 package com.data_maneger.json_manager;
 
-import com.data_maneger.ProductFactory;
-import com.example.data_models.product_models.DataType;
-import com.example.data_models.product_models.Product;
+import com.data_maneger.factory_manager.ProductFactory;
+import com.example.elements_models.data_models.DataType;
+import com.example.elements_models.data_models.Product;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,7 +23,7 @@ public class JsonMapper {
             DataType classType = DataType.parseDataType(productJsonObject.getString(JSON_CLASS_TYPE_PARAMETER));
             List<Object> values = getJsonValuesForClass(productJsonObject, classType);
 
-            Product product = ProductFactory.createProductObject(ProductFactory.getClassByType(classType), values);
+            Product product = ProductFactory.createProductObject(classType, values);
             products.add(product);
         }
 
@@ -34,7 +34,7 @@ public class JsonMapper {
         List<Object> convertedParameters = new ArrayList<>();
 
         List<String> jsonParameters = getJsonParametersNames(productJsonObj);
-        List<String> classParameters = ProductFactory.getConstructorClassParametersNames(type);
+        List<String> classParameters = ProductFactory.getProductConstructorParametersNames(type);
         /*
             The reason we need validation is that when I get the json parameter names, they are saved in inconsistent
             order. We also need a counter to check how many matches there are between the parameters, because the json

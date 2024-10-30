@@ -1,26 +1,16 @@
-package com.data_maneger;
+package com.data_maneger.factory_manager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import com.example.data_models.product_models.DataType;
-import com.example.data_models.product_models.Product;
-import com.example.data_models.product_models.models.BiroterapiyaProduct;
-import com.example.data_models.product_models.models.ConsumerProduct;
-import com.example.data_models.product_models.models.VedenaProduct;
-
-public class ProductFactory {
-    /*
-        A class that contains all the implementations of the methods that manipulate the information coming from the
-        files. The methods deal with the creation of objects based on received parameters, information validation, data
-        parsing.
-     */
-
-    public static <T extends Product> T createProductObject(Class<?> clazz, List<Object> elements) throws InvocationTargetException,
-            InstantiationException, IllegalAccessException {
+public class ReflectionUtils {
+    public static <T> T createObject(Class<?> clazz, List<Object> elements) throws
+            InvocationTargetException, InstantiationException, IllegalAccessException {
         Constructor<?>[] constructors = clazz.getConstructors();
         /*
             Since we may have more than one constructor in the future, we want to be able to dynamically create an
@@ -34,17 +24,33 @@ public class ProductFactory {
             }
         }
 
-        throw new IllegalArgumentException("There is no suitable constructor for this class with so many parameters.");
+        throw new IllegalArgumentException("There is no suitable constructor for this class with so many parameters." +
+                System.lineSeparator() + "Cannot create class " + clazz);
     }
 
-    public static List<String> getConstructorClassParametersNames(DataType productType) {
-        Class<?> productClass = getClassByType(productType);
-        return getParametersNames(productClass);
+    public static List<String> getAllDeclaredClassFieldsNames(Class<?> clazz) {
+        /*
+            Any field names that possibly overlap in the parent and child classes will be fetched once. Avoids errors
+            where in the parent class the field that matches that of the successor is redefined and possible data
+            confusion occurs.
+         */
+
+        List<String> allClassFieldsNames = new ArrayList<>();
+
+        while (clazz != null && clazz != Object.class) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                allClassFieldsNames.add(field.getName());
+            }
+
+            clazz = clazz.getSuperclass();
+        }
+
+        return Collections.unmodifiableList(allClassFieldsNames);
     }
 
-    public static List<String> getParametersNames(Class<?> productClass) {
-        Constructor<?>[] constructors = productClass.getConstructors();
-        Constructor<?> constructor = getMainConstructor(constructors);
+    public static List<String> getClassConstructorParametersNames(Class<?> clazz) {
+        Constructor<?> constructor = getMainConstructor(clazz.getConstructors());
 
         Parameter[] parameters = constructor.getParameters();
         List<String> parameterNames = new ArrayList<>();
@@ -54,35 +60,6 @@ public class ProductFactory {
         }
 
         return Collections.unmodifiableList(parameterNames);
-    }
-
-    public static List<String> getAllDeclaredFieldsNames(Class<?> productClass) {
-        /*
-            Any field names that possibly overlap in the parent and child classes will be fetched once. Avoids errors
-            where in the parent class the field that matches that of the successor is redefined and possible data
-            confusion occurs.
-         */
-
-        List<String> allClassFieldsNames = new ArrayList<>();
-
-        while (productClass != null && productClass != Object.class) {
-            Field[] fields = productClass.getDeclaredFields();
-            for (Field field : fields) {
-                allClassFieldsNames.add(field.getName());
-            }
-
-            productClass = productClass.getSuperclass();
-        }
-
-        return Collections.unmodifiableList(allClassFieldsNames);
-    }
-
-    public static Class<?> getClassByType(DataType classType) {
-        return switch (classType) {
-            case VEDENA -> VedenaProduct.class;
-            case CONSUMER -> ConsumerProduct.class;
-            case BIROTERAPIYA -> BiroterapiyaProduct.class;
-        };
     }
 
     private static Constructor<?> getMainConstructor(Constructor<?>[] constructors) {

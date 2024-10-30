@@ -1,9 +1,9 @@
 package com.example.application;
 
 import com.data_maneger.FunctionManager;
-import com.data_maneger.ProductFactory;
-import com.example.data_models.product_models.DataType;
-import com.example.data_models.product_models.Product;
+import com.data_maneger.factory_manager.ProductFactory;
+import com.example.elements_models.data_models.DataType;
+import com.example.elements_models.data_models.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,9 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.data_maneger.ProductFactory.getClassByType;
-
-public class AddProductView implements Initializable {
+public class AddProductController implements Initializable {
 
     @FXML
     private Button btnAddProduct;
@@ -94,7 +92,7 @@ public class AddProductView implements Initializable {
             List<Object> values = Arrays.asList(name, price, description);
             String fileName = type.getFileDirectory();
 
-            Product product = ProductFactory.createProductObject(getClassByType(type), values);
+            Product product = ProductFactory.createProductObject(type, values);
             FunctionManager.saveAction(product, fileName);
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException("Incorrect information for creating a class!");

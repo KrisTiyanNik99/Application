@@ -1,8 +1,8 @@
-package com.example.data_models.table_models;
+package com.example.elements_models.table_models;
 
-import com.data_maneger.ProductFactory;
-import com.data_maneger.FunctionManager;
-import com.example.data_models.product_models.Product;
+import com.data_maneger.factory_manager.ProductFactory;
+import com.data_maneger.factory_manager.ReflectionUtils;
+import com.example.elements_models.data_models.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -21,7 +21,8 @@ public class DeliveryTableView extends TableView<Product> {
     }
 
     public void mapColumnsToFields(List<Product> products) {
-        List<String> productClassFieldsNames = ProductFactory.getAllDeclaredFieldsNames(FunctionManager.checkTableClassType(products));
+        List<String> productClassFieldsNames = ReflectionUtils
+                .getAllDeclaredClassFieldsNames(ProductFactory.checkTableClassType(products));
         connectColumnsToClassFieldsByNames(productClassFieldsNames);
     }
 

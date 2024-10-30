@@ -1,7 +1,7 @@
-package com.example.data_models.product_models.models;
+package com.example.elements_models.data_models.child_products;
 
-import com.example.data_models.product_models.DataType;
-import com.example.data_models.product_models.Product;
+import com.example.elements_models.data_models.DataType;
+import com.example.elements_models.data_models.Product;
 
 public class VedenaProduct extends Product {
     public VedenaProduct(String name, double price, String description) {

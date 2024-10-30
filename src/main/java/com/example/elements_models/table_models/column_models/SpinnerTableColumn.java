@@ -1,6 +1,6 @@
-package com.example.data_models.table_models.column_models;
+package com.example.elements_models.table_models.column_models;
 
-import com.example.data_models.product_models.Product;
+import com.example.elements_models.data_models.Product;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;

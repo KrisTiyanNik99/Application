@@ -1,6 +1,6 @@
 package com.data_maneger.json_manager;
 
-import com.example.data_models.product_models.Product;
+import com.example.elements_models.data_models.Product;
 
 import java.util.List;
 

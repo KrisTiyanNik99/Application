@@ -1,9 +1,8 @@
 package com.data_maneger;
 
 import com.data_maneger.json_manager.JsonDataManager;
-import com.example.data_models.product_models.DataType;
-import com.example.data_models.product_models.Product;
-import com.example.data_models.table_models.DeliveryTableView;
+import com.example.elements_models.data_models.Product;
+import com.example.elements_models.table_models.DeliveryTableView;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -118,24 +117,6 @@ public class FunctionManager {
         });
     }
 
-    public static Class<?> checkTableClassType(List<Product> products) {
-        if (products.isEmpty()) {
-            throw new IllegalArgumentException("The product list is empty!");
-        }
-
-        // We take from first element our DataType and check if all rest elements match it
-        DataType classType = products.getFirst().getType();
-
-        boolean allMatch = products.stream().map(Product::getType)
-                .allMatch(type -> type.equals(classType));
-
-        if (!allMatch) {
-            throw new IllegalArgumentException("Different data types in one file!");
-        }
-
-        return ProductFactory.getClassByType(classType);
-    }
-
     public static void alertMessage(String title, String headerText, String text, Alert.AlertType type) {
         Alert invalid = new Alert(type);
 
@@ -179,6 +160,7 @@ public class FunctionManager {
 
     private static boolean checkForMatch(Product product, TableView<Product> requestTable) {
 
-        return requestTable.getItems().stream().anyMatch(p -> product.getName().equals(p.getName()));
+        return requestTable.getItems().stream()
+                .anyMatch(p -> product.getName().equals(p.getName()));
     }
 }

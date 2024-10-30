@@ -1,4 +1,4 @@
-package com.example.data_models.product_models;
+package com.example.elements_models.data_models;
 
 public enum DataType {
     VEDENA("com/data/vedena.json"),
