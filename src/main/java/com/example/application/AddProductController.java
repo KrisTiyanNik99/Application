@@ -1,9 +1,10 @@
 package com.example.application;
 
-import com.data_maneger.FunctionManager;
-import com.data_maneger.factory_manager.ProductFactory;
+import com.operation_maneger.factory_manager.ProductFactory;
 import com.example.elements_models.data_models.DataType;
 import com.example.elements_models.data_models.Product;
+import com.operation_maneger.function_manager.FileUtils;
+import com.operation_maneger.function_manager.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,21 +26,17 @@ public class AddProductController implements Initializable {
 
     @FXML
     private Button btnAddProduct;
-
     @FXML
     private TextField productName;
-
     @FXML
     private TextField productPrice;
-
     @FXML
     private ComboBox<String> productType;
-
     @FXML
     private TextField productDescription;
 
     public void returnToTable(ActionEvent event) {
-        FunctionManager.switchSceneAction((Node) event.getSource(), "mainView.fxml",
+        UIUtils.switchSceneAction((Node) event.getSource(), "mainView.fxml",
                 "Request App", this.getClass());
     }
 
@@ -69,10 +66,10 @@ public class AddProductController implements Initializable {
 
             if (checkBol) {
                 addProductToFile();
-                FunctionManager.alertMessage("Successfully", "You successfully add a Product",
+                UIUtils.alertMessage("Successfully", "You successfully add a Product",
                         "New Product is added to your table and file!", Alert.AlertType.INFORMATION);
             } else {
-                FunctionManager.alertMessage("Missing info", "Please fill all fields",
+                UIUtils.alertMessage("Missing info", "Please fill all fields",
                         "Fill all fields with correct information", Alert.AlertType.WARNING);
             }
 
@@ -84,7 +81,7 @@ public class AddProductController implements Initializable {
 
     private void addProductToFile() {
         String name = productName.getText();
-        double price = FunctionManager.formatToTwoDecimalPlaces(productPrice.getText());
+        double price = formatToTwoDecimalPlaces(productPrice.getText());
         DataType type = DataType.parseDataType(productType.getValue());
         String description = productDescription.getText();
 
@@ -93,7 +90,7 @@ public class AddProductController implements Initializable {
             String fileName = type.getFileDirectory();
 
             Product product = ProductFactory.createProductObject(type, values);
-            FunctionManager.saveAction(product, fileName);
+            FileUtils.saveAction(product, fileName);
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException("Incorrect information for creating a class!");
         }
@@ -113,7 +110,7 @@ public class AddProductController implements Initializable {
 
             return true;
         } catch (NullPointerException e) {
-            FunctionManager.alertMessage("Incorrect price", "Choose from the drop down menu some option!",
+            UIUtils.alertMessage("Incorrect price", "Choose from the drop down menu some option!",
                     "You need to select one option from the drop down menu which category will be the product.",
                     Alert.AlertType.WARNING);
 
@@ -128,11 +125,20 @@ public class AddProductController implements Initializable {
 
             return true;
         } catch (NumberFormatException e) {
-            FunctionManager.alertMessage("Incorrect price", "The price is incorrect filled",
+            UIUtils.alertMessage("Incorrect price", "The price is incorrect filled",
                     "The 'Product Price' field must be float(double) number who is separated with '.'!",
                     Alert.AlertType.WARNING);
 
             return false;
+        }
+    }
+    public static double formatToTwoDecimalPlaces(String numberStr) {
+        try {
+            double number = Double.parseDouble(numberStr);
+
+            return Double.parseDouble(String.format("%.2f", number));
+        } catch (NumberFormatException e) {
+            return 0.00;
         }
     }
 }

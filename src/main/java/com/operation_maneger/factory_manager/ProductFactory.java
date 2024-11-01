@@ -1,4 +1,4 @@
-package com.data_maneger.factory_manager;
+package com.operation_maneger.factory_manager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -29,7 +29,7 @@ public class ProductFactory {
         return ReflectionUtils.getClassConstructorParametersNames(productClass);
     }
 
-    public static Class<?> checkTableClassType(List<Product> products) {
+    public static Class<?> checkTableItemsClassType(List<Product> products) {
         if (products.isEmpty()) {
             throw new IllegalArgumentException("The product list is empty!");
         }
@@ -37,7 +37,8 @@ public class ProductFactory {
         // We take from first element our DataType and check if all rest elements match it
         DataType classType = products.getFirst().getType();
         boolean allMatch = products.stream()
-                .map(Product::getType).allMatch(type -> type.equals(classType));
+                .map(Product::getType)
+                .allMatch(type -> type.equals(classType));
 
         if (!allMatch) {
             throw new IllegalArgumentException("Different data types in one file!");

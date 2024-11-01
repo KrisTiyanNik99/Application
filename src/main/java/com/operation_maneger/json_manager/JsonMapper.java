@@ -1,6 +1,6 @@
-package com.data_maneger.json_manager;
+package com.operation_maneger.json_manager;
 
-import com.data_maneger.factory_manager.ProductFactory;
+import com.operation_maneger.factory_manager.ProductFactory;
 import com.example.elements_models.data_models.DataType;
 import com.example.elements_models.data_models.Product;
 import org.json.JSONArray;

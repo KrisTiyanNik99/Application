@@ -1,8 +1,10 @@
 package com.example.application;
 
-import com.data_maneger.FunctionManager;
-import com.data_maneger.json_manager.JsonDataManager;
-import com.data_maneger.json_manager.JsonParser;
+import com.operation_maneger.function_manager.FileUtils;
+import com.operation_maneger.function_manager.TableManager;
+import com.operation_maneger.function_manager.UIUtils;
+import com.operation_maneger.json_manager.JsonDataManager;
+import com.operation_maneger.json_manager.JsonParser;
 import com.example.elements_models.data_models.Product;
 import com.example.elements_models.table_models.DeliveryTableView;
 import com.example.elements_models.table_models.column_models.SpinnerTableColumn;
@@ -24,33 +26,24 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btnDeleteProduct, btnSend, btnSave, btnHome, btnVedena, btnBiroterapiya, btnConsumer;
-
-    @FXML
-    private ImageView btnExit, btnMin;
-
-    @FXML
-    private DeliveryTableView mainTable;
-
-    @FXML
-    private TableView<Product> requestTable;
-
-    @FXML
-    private TableColumn<Product, ?> name;
-
-    @FXML
-    private SpinnerTableColumn quantity;
-
     @FXML
     private Label cardMenuClose, cardMenuOpen, exitBtn, productCounter;
-
+    @FXML
+    private ImageView btnExit, btnMin;
+    @FXML
+    private DeliveryTableView mainTable;
+    @FXML
+    private TableView<Product> requestTable;
+    @FXML
+    private TableColumn<Product, ?> name;
+    @FXML
+    private SpinnerTableColumn quantity;
     @FXML
     private BorderPane mainPanel;
-
     @FXML
     private AnchorPane shoppingCartMenu;
 
     private final Map<String, List<Product>> productDataByFile = new HashMap<>();
-
     private static String infoFileName;
 
     public void switchInformationForm(ActionEvent event) {
@@ -72,15 +65,15 @@ public class MainController implements Initializable {
                 productDataByFile.putIfAbsent(fileName, productsList);
                 mainTable.setupTableWithData(productDataByFile.get(fileName));
 
-                setCheckBoxActionToTableColumn(mainTable);
+                setActionToCheckBox(mainTable);
                 mainTable.setVisible(true);
                 break;
             }
         }
     }
 
-    public void addProductActionToElement(ActionEvent event) {
-        FunctionManager.switchSceneAction((Node) event.getSource(), "addProductView.fxml",
+    public void switchSceneActionToElement(ActionEvent event) {
+        UIUtils.switchSceneAction((Node) event.getSource(), "addProductView.fxml",
                 "Add Product", this.getClass());
     }
 
@@ -117,18 +110,29 @@ public class MainController implements Initializable {
 
     private void addSaveActionToElement(Node element) {
         element.setOnMouseClicked(mouseEvent -> {
-            FunctionManager.saveAction(mainTable, infoFileName);
-            mainTable.refresh();
-            FunctionManager.alertMessage("Save", "Table save.",
+            List<Product> products = mainTable.getItems();
+
+            FileUtils.saveAction(products, infoFileName);
+            UIUtils.alertMessage("Save", "Table save.",
                     "You successfully save your current state of the table!", Alert.AlertType.INFORMATION);
+
+            mainTable.refresh();
         });
     }
 
     private void addDeleteActionToElement(Node element) {
         element.setOnMouseClicked(mouseEvent -> {
-            FunctionManager.deleteActionFromTables(mainTable, requestTable, productCounter);
-            FunctionManager.deleteElementFromMap(mainTable, infoFileName, productDataByFile);
+            Product selectedProduct = mainTable.getSelectionModel().getSelectedItem();
+            deleteProduct(selectedProduct);
+
+            productCounter.setText(String.valueOf(requestTable.getItems().size()));
         });
+    }
+
+    private void deleteProduct(Product selectedProduct) {
+        FileUtils.deleteProductFromTable(selectedProduct, mainTable);
+        FileUtils.deleteProductFromTable(selectedProduct, requestTable);
+        FileUtils.deleteElementFromMap(selectedProduct, infoFileName, productDataByFile);
     }
 
     private void addMinimizeActionToElement(Node element) {
@@ -141,8 +145,8 @@ public class MainController implements Initializable {
     private void setSlideActionOnShoppingCartMenu() {
         shoppingCartMenu.setTranslateX(250);
 
-        FunctionManager.setSlideAction(cardMenuOpen, cardMenuClose, 0, 250, shoppingCartMenu);
-        FunctionManager.setSlideAction(cardMenuClose, cardMenuOpen, 250, 0, shoppingCartMenu);
+        UIUtils.setSlideAction(cardMenuOpen, cardMenuClose, 0, 250, shoppingCartMenu);
+        UIUtils.setSlideAction(cardMenuClose, cardMenuOpen, 250, 0, shoppingCartMenu);
     }
 
     private void setUpRequestTableColumns() {
@@ -150,11 +154,11 @@ public class MainController implements Initializable {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
-    private void setCheckBoxActionToTableColumn(DeliveryTableView mainTable) {
+    private void setActionToCheckBox(DeliveryTableView mainTable) {
         for (Product item : mainTable.getItems()) {
             CheckBox select = item.getSelect();
 
-            FunctionManager.setAddingActionEventToCheckBox(select, item, requestTable, productCounter);
+            TableManager.setAddingActionEventToCheckBox(select, item, requestTable, productCounter);
         }
     }
 
@@ -163,6 +167,7 @@ public class MainController implements Initializable {
             A method by which we connect the desired button with file that we want to extract info when it is pressed
             We add exactly this file with which we want to associate the button we press on the left menu.
          */
+
         Map<Button, String> mapButtonsToTables = new HashMap<>();
 
         mapButtonsToTables.put(btnVedena, "com/data/vedena.json");

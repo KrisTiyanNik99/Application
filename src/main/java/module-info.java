@@ -5,6 +5,7 @@ module com.example.application {
     requires org.kordamp.bootstrapfx.core;
     requires org.json;
     requires reflections;
+    requires org.jetbrains.annotations;
 
     opens com.example.application to javafx.fxml;
     opens com.example.elements_models.data_models to javafx.base;

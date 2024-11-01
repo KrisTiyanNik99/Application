@@ -1,7 +1,7 @@
 package com.example.elements_models.table_models;
 
-import com.data_maneger.factory_manager.ProductFactory;
-import com.data_maneger.factory_manager.ReflectionUtils;
+import com.operation_maneger.factory_manager.ProductFactory;
+import com.operation_maneger.factory_manager.ReflectionUtils;
 import com.example.elements_models.data_models.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +22,7 @@ public class DeliveryTableView extends TableView<Product> {
 
     public void mapColumnsToFields(List<Product> products) {
         List<String> productClassFieldsNames = ReflectionUtils
-                .getAllDeclaredClassFieldsNames(ProductFactory.checkTableClassType(products));
+                .getAllDeclaredClassFieldsNames(ProductFactory.checkTableItemsClassType(products));
         connectColumnsToClassFieldsByNames(productClassFieldsNames);
     }
 
