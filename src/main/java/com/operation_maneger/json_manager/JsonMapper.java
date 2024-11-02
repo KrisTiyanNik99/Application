@@ -21,8 +21,8 @@ public class JsonMapper {
 
             // Each JSON file must contain a 'type' parameter to identify the product class.
             DataType classType = DataType.parseDataType(productJsonObject.getString(JSON_CLASS_TYPE_PARAMETER));
-            List<Object> values = getJsonValuesForClass(productJsonObject, classType);
 
+            List<Object> values = getJsonValuesForClass(productJsonObject, classType);
             Product product = ProductFactory.createProductObject(classType, values);
             products.add(product);
         }

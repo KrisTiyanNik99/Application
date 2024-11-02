@@ -1,5 +1,7 @@
 package com.operation_maneger.json_manager;
 
+import com.operation_maneger.function_manager.FileUtils;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -20,18 +22,7 @@ public class JsonReader {
 
         Path path = Paths.get(filePath);
 
-        try {
-            if (!Files.exists(path)) {
-                throw new IllegalArgumentException("File was not found: " + filePath);
-            }
-
-            InputStream in = Files.newInputStream(path);
-            JSONTokener token = new JSONTokener(in);
-
-            return new JSONObject(token);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return loadJsonFile(path);
     }
 
     public static JSONArray findJsonArray(JSONObject jsonObject) {
@@ -51,5 +42,19 @@ public class JsonReader {
         }
 
         throw new IllegalArgumentException("Array was not found!");
+    }
+
+    @NotNull
+    private static JSONObject loadJsonFile(Path path) {
+        try {
+            FileUtils.checkForExistingFile(path);
+
+            InputStream in = Files.newInputStream(path);
+            JSONTokener token = new JSONTokener(in);
+
+            return new JSONObject(token);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,5 +1,5 @@
 # Project Overview
-This JavaFX-based application is designed for product management, utilizing data from JSON files and displaying it in a table view interface and it's builded for my current work. The system incorporates functionalities for loading, saving, and manipulating product data. The application architecture is built with a combination of the JavaFX framework for the user interface, JSON for data management, and Reflection API to dynamically handle product objects.
+This JavaFX-based application is designed for product management, utilizing data from JSON files and displaying it in a table view interface, and it's build to train mu current skills with OOP. The system incorporates functionalities for loading, saving, and manipulating product data. The application architecture is built with a combination of the JavaFX framework for the user interface, JSON for data management, and Reflection API to dynamically handle product objects.
 
 ## Table of contents
 * [Key Components](#key-components)

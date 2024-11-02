@@ -4,6 +4,8 @@ import com.example.elements_models.data_models.Product;
 import com.operation_maneger.json_manager.JsonDataManager;
 import javafx.scene.control.TableView;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -37,5 +39,11 @@ public class FileUtils {
                                             Map<String, List<Product>> productDataByFile) {
 
         productDataByFile.get(infoFileName).removeIf(selectedProduct::equals);
+    }
+
+    public static void checkForExistingFile(Path path) {
+        if (!Files.exists(path)) {
+            throw new IllegalArgumentException("File was not found: " + path);
+        }
     }
 }

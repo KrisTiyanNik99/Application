@@ -50,11 +50,8 @@ public class ReflectionUtils {
     }
 
     public static List<String> getClassConstructorParametersNames(Class<?> clazz) {
-        Constructor<?> constructor = getMainConstructor(clazz.getConstructors());
-
-        Parameter[] parameters = constructor.getParameters();
+        Parameter[] parameters = getMainConstructor(clazz.getConstructors()).getParameters();
         List<String> parameterNames = new ArrayList<>();
-
         for (Parameter parameter : parameters) {
             parameterNames.add(parameter.getName());
         }
