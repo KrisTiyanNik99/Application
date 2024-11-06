@@ -7,7 +7,6 @@ import com.operation_maneger.json_manager.JsonDataManager;
 import com.operation_maneger.json_manager.JsonParser;
 import com.example.elements_models.data_models.Product;
 import com.example.elements_models.table_models.DeliveryTableView;
-import com.example.elements_models.table_models.column_models.SpinnerTableColumn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,8 +35,6 @@ public class MainController implements Initializable {
     private TableView<Product> requestTable;
     @FXML
     private TableColumn<Product, ?> name;
-    @FXML
-    private SpinnerTableColumn quantity;
     @FXML
     private BorderPane mainPanel;
     @FXML
@@ -93,6 +90,7 @@ public class MainController implements Initializable {
         addDeleteActionToElement(btnDeleteProduct);
         addSaveActionToElement(btnSave);
         addMinimizeActionToElement(btnMin);
+        addSendActionToElement(btnSend);
     }
 
     private void startHomePage() {
@@ -106,6 +104,18 @@ public class MainController implements Initializable {
 
     private void addCloseActionToElement(Node node) {
         node.setOnMouseClicked(mouseEvent -> System.exit(0));
+    }
+
+    private void addSendActionToElement(Node btnSend) {
+        btnSend.setOnMouseClicked(event -> {
+            try {
+                TableManager.sendRequestByMail(requestTable);
+                UIUtils.alertMessage("Successfully", "Request is send",
+                        "Request is successfully send!", Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                throw new RuntimeException("Format exception!");
+            }
+        });
     }
 
     private void addSaveActionToElement(Node element) {

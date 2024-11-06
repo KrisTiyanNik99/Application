@@ -49,8 +49,7 @@ public class JsonReader {
         try {
             FileUtils.checkForExistingFile(path);
 
-            InputStream in = Files.newInputStream(path);
-            JSONTokener token = new JSONTokener(in);
+            JSONTokener token = new JSONTokener(Files.newInputStream(path));
 
             return new JSONObject(token);
         } catch (IOException e) {

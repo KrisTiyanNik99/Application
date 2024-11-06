@@ -32,7 +32,6 @@ public class UIUtils {
     }
 
     public static void switchSceneAction(Node source, String fileName, String stageName, Class<?> clazz) {
-
         closeCurrentStage(source);
         try {
             loadNewSceneFile(fileName, stageName, clazz);

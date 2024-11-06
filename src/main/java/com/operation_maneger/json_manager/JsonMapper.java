@@ -60,6 +60,24 @@ public class JsonMapper {
         return Collections.unmodifiableList(convertedParameters);
     }
 
+    public static List<Object> getElementsFromJsonArray(JSONArray jsonArray) {
+        List<Object> objects = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject= jsonArray.getJSONObject(i);
+            addValuesToObjectList(jsonObject, objects);
+        }
+
+        return objects;
+    }
+
+    private static void addValuesToObjectList(JSONObject jsonObject, List<Object> objects) {
+        List<String> jsonParamNames = getJsonParametersNames(jsonObject);
+        for (String jsonParamName : jsonParamNames) {
+            String jsonValue = jsonObject.get(jsonParamName).toString();
+            objects.add(convertJsonParameterToValue(jsonValue));
+        }
+    }
+
     private static List<String> getJsonParametersNames(JSONObject jsonParamObj) {
         /*
            Takes the parameters from the json file and returns them as List. Entire json file has the same structure
