@@ -53,9 +53,11 @@ public class AddProductController implements Initializable {
     private void addValuesToComboBox(ComboBox<String> comboBox) {
 
         DataType[] types = DataType.values();
-        List<String> stringType = Arrays.stream(types).map(Enum::toString).toList();
+        ObservableList<String> values = FXCollections.observableArrayList(
+                Arrays.stream(types)
+                .map(Enum::toString)
+                .toList());
 
-        ObservableList<String> values = FXCollections.observableArrayList(stringType);
         comboBox.getItems().addAll(values);
     }
 
@@ -63,7 +65,6 @@ public class AddProductController implements Initializable {
 
         btnAddProduct.setOnMouseClicked(mouseEvent -> {
             boolean checkBol = checkForFilledMandatoryFields();
-
             if (checkBol) {
                 addProductToFile();
                 UIUtils.alertMessage("Successfully", "You successfully add a Product",
@@ -73,10 +74,14 @@ public class AddProductController implements Initializable {
                         "Fill all fields with correct information", Alert.AlertType.WARNING);
             }
 
-            productName.setText("");
-            productPrice.setText("");
-            productDescription.setText("");
+            resetFields();
         });
+    }
+
+    private void resetFields() {
+        productName.setText("");
+        productPrice.setText("");
+        productDescription.setText("");
     }
 
     private void addProductToFile() {
@@ -85,15 +90,7 @@ public class AddProductController implements Initializable {
         DataType type = DataType.parseDataType(productType.getValue());
         String description = productDescription.getText();
 
-        try {
-            List<Object> values = Arrays.asList(name, price, description);
-            String fileName = type.getFileDirectory();
-
-            Product product = ProductFactory.createProductObject(type, values);
-            FileUtils.saveAction(product, fileName);
-        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException("Incorrect information for creating a class!");
-        }
+        saveProduct(name, price, description, type);
     }
 
     private boolean checkForFilledMandatoryFields() {
@@ -132,6 +129,7 @@ public class AddProductController implements Initializable {
             return false;
         }
     }
+
     public static double formatToTwoDecimalPlaces(String numberStr) {
         try {
             double number = Double.parseDouble(numberStr);
@@ -139,6 +137,18 @@ public class AddProductController implements Initializable {
             return Double.parseDouble(String.format("%.2f", number));
         } catch (NumberFormatException e) {
             return 0.00;
+        }
+    }
+
+    private static void saveProduct(String name, double price, String description, DataType type) {
+        try {
+            List<Object> values = Arrays.asList(name, price, description);
+            String fileName = type.getFileDirectory();
+
+            Product product = ProductFactory.createProductObject(type, values);
+            FileUtils.saveAction(product, fileName);
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException("Incorrect information for creating a class!");
         }
     }
 }

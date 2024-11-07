@@ -1,5 +1,6 @@
 package com.operation_maneger.gmail_manager;
 
+import com.example.elements_models.config.FilePath;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -30,8 +31,6 @@ import java.util.Set;
 import static com.google.api.services.gmail.GmailScopes.GMAIL_SEND;
 
 public class GmailUtils {
-    private static final String CREDENTIALS_FILE_PATH = "E:\\Request App\\Application\\src\\main\\resources\\com\\example\\configuration\\client_secret.json";
-
     public static void sendMail(String title, String textBody) throws Exception {
         // Build a new authorized API client service
         Gmail service = createGmailService();
@@ -92,10 +91,7 @@ public class GmailUtils {
 
     @NotNull
     private static InputStream loadServiceConfiguration() throws FileNotFoundException {
-        InputStream in = new FileInputStream(CREDENTIALS_FILE_PATH);
-        if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
-        }
+        InputStream in = new FileInputStream(FilePath.GMAIL_CONFIG_PATH);
 
         return in;
     }

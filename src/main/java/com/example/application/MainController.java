@@ -113,7 +113,7 @@ public class MainController implements Initializable {
                 UIUtils.alertMessage("Successfully", "Request is send",
                         "Request is successfully send!", Alert.AlertType.INFORMATION);
             } catch (Exception e) {
-                throw new RuntimeException("Format exception!");
+                throw new RuntimeException("Format exception! " + e);
             }
         });
     }

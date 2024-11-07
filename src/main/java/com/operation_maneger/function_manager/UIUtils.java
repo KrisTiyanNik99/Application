@@ -1,5 +1,6 @@
 package com.operation_maneger.function_manager;
 
+import com.example.elements_models.config.FilePath;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +18,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 public class UIUtils {
-    private static final String FILE_DIRECTORY = "/com/example/application/";
-
     public static void setSlideAction(Node currentMenu, Node otherMenu, int slideX,
                                       int shoppingCartMenuX, AnchorPane shoppingCartMenu) {
 
@@ -41,7 +40,7 @@ public class UIUtils {
     }
 
     private static void loadNewSceneFile(String fileName, String stageName, Class<?> clazz) throws IOException {
-        String directory = FILE_DIRECTORY + fileName;
+        String directory = FilePath.UI_FILE_DIR + fileName;
         Parent productView = getParent(clazz, directory);
 
         Stage stage = setUpStageSettings(stageName, productView);

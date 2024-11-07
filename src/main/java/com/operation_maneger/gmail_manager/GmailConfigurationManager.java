@@ -1,5 +1,6 @@
 package com.operation_maneger.gmail_manager;
 
+import com.example.elements_models.config.FilePath;
 import com.example.elements_models.gmail_config_model.GmailConfiguration;
 import com.operation_maneger.factory_manager.ReflectionUtils;
 import com.operation_maneger.json_manager.JsonMapper;
@@ -9,8 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class GmailConfigurationManager {
-    private static final String FILE_PATH = "E:\\Request App\\Application\\src\\main\\resources\\com\\example\\configuration\\configuration.json";
-
     private static GmailConfigurationManager myGmailConfigManager;
     private static GmailConfiguration myGmailConfiguration;
 
@@ -40,6 +39,6 @@ public class GmailConfigurationManager {
     }
 
     private static List<Object> getElementsFromJson() {
-        return JsonMapper.getElementsFromJsonArray(JsonReader.findJsonArray(JsonReader.getJsonFileObject(FILE_PATH)));
+        return JsonMapper.getElementsFromJsonArray(JsonReader.findJsonArray(JsonReader.getJsonFileObject(FilePath.GMAIL_CONFIG_CLASS_PATH)));
     }
 }

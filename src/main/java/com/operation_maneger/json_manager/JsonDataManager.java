@@ -1,5 +1,6 @@
 package com.operation_maneger.json_manager;
 
+import com.example.elements_models.config.FilePath;
 import com.example.elements_models.data_models.Product;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -13,12 +14,11 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class JsonDataManager implements JsonParser {
-    private static final String RESOURCE_DIR = "E:\\Request App\\Application\\src\\main\\java\\";
     private static final String JSON_ARRAY_NAME = "products";
 
     @Override
     public List<Product> getProductsFromJsonFile(String fileName) {
-        String absolutePath = RESOURCE_DIR + fileName;
+        String absolutePath = FilePath.JSON_RESOURCE_DIR + fileName;
         JSONArray jsonArray = JsonReader.findJsonArray(JsonReader.getJsonFileObject(absolutePath));
 
         return fillListWithProducts(jsonArray);
@@ -26,13 +26,13 @@ public class JsonDataManager implements JsonParser {
 
     @Override
     public void saveInfoToJsonFile(String newData, String fileName) {
-        String resourceDir = RESOURCE_DIR + fileName;
+        String resourceDir = FilePath.JSON_RESOURCE_DIR + fileName;
         writeNewDataInJsonFile(newData, resourceDir);
     }
 
     @Override
     public void saveInfoToJsonFile(List<Product> products, String fileName) {
-        String resourceDir = RESOURCE_DIR + fileName;
+        String resourceDir = FilePath.JSON_RESOURCE_DIR + fileName;
 
         JSONArray productsArray = fillJsonArrayWithData(products);
         writeJsonArrayToFile(productsArray, resourceDir);

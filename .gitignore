@@ -11,6 +11,7 @@ target/
 *.iws
 *.iml
 *.ipr
+/src/main/java/com/example/elements_models/config
 /src/main/resources/com/example/configuration/
 
 
