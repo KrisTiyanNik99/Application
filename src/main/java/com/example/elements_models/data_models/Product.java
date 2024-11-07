@@ -77,7 +77,7 @@ public abstract class Product {
     public String toString() {
         StringBuilder productText = new StringBuilder();
         productText.append(quantity).append("x ").append(name).append(System.lineSeparator());
-        productText.append("Price: ").append(price).append(" leva.");
+        productText.append("Unit Price: ").append(price).append(" leva.");
         productText.append(System.lineSeparator());
         productText.append("---------------------------------------------------------------#");
 

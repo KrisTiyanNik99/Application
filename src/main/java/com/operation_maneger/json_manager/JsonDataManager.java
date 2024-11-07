@@ -19,11 +19,9 @@ public class JsonDataManager implements JsonParser {
     @Override
     public List<Product> getProductsFromJsonFile(String fileName) {
         String absolutePath = RESOURCE_DIR + fileName;
-
         JSONArray jsonArray = JsonReader.findJsonArray(JsonReader.getJsonFileObject(absolutePath));
-        List<Product> products = fillListWithProducts(jsonArray);;
 
-        return products;
+        return fillListWithProducts(jsonArray);
     }
 
     @Override
