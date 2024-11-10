@@ -1,4 +1,4 @@
-package com.example.application;
+package com.example.application.controllers;
 
 import com.operation_maneger.function_manager.FileUtils;
 import com.operation_maneger.function_manager.TableManager;

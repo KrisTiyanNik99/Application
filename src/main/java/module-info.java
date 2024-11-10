@@ -25,4 +25,6 @@ module com.example.application {
     exports com.example.elements_models.data_models;
     exports com.example.elements_models.table_models.column_models to javafx.fxml;
     exports com.example.elements_models.table_models to javafx.fxml;
+    exports com.example.application.controllers;
+    opens com.example.application.controllers to javafx.fxml;
 }

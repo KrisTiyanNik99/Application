@@ -16,7 +16,7 @@
 <?import javafx.scene.control.TableView?>
 <?import com.example.elements_models.table_models.column_models.SpinnerTableColumn?>
 <?import com.example.elements_models.table_models.DeliveryTableView?>
-<AnchorPane prefHeight="580.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.MainController">
+<AnchorPane prefHeight="580.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.controllers.MainController">
     <BorderPane fx:id="mainPanel" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <top>
             <AnchorPane prefHeight="110.0" prefWidth="900.0" style="-fx-background-color: #e6ffff;" BorderPane.alignment="CENTER">
