@@ -182,3 +182,8 @@ Maven Dependencies:
 
 ## Conclusion
 This application provides a robust and extendable framework for managing product data from JSON files, displaying it in a JavaFX table, and incorporating Gmail-based notifications. Its architecture leverages the power of reflection for dynamic object creation, JSON for flexible data management, and Gmail API for notification capabilities, making it a powerful tool for product management.
+
+## Contact
+If you’d like to discuss my work, provide feedback, or explore potential opportunities, feel free to reach out to me at kristiyan18kiko@gmail.com.
+
+Thank you for your time and interest in reviewing my repository!
