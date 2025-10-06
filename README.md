@@ -1,203 +1,187 @@
 # Project Overview
-This Java Swing-based hotel management application provides functionalities for managing users, rooms, room types, and reservations. The system uses JSON-like repositories for data persistence and emphasizes modular, object-oriented design to facilitate extensibility and maintainability. Core functionalities include creating, updating, deleting, and viewing users, rooms, room types, and reservations. The UI is managed through a Mediator pattern implemented by the UIController and Window interfaces, ensuring centralized communication between different UI components.
-
-The system also demonstrates the use of the Factory and Mediator patterns in repository classes for generating unique IDs and creating new entities dynamically.
+This JavaFX-based application is designed for product management, utilizing data from JSON files and displaying it in a table view interface, with a modular architecture aimed at enhancing object-oriented programming (OOP) skills. The system incorporates functionalities for loading, saving, manipulating, and sending product data via Gmail. The application is built with JavaFX for the UI, JSON for data management, Gmail API for email notifications, and Reflection API for dynamically managing product objects.
 
 ## Table of contents
 * [Key Functionalities](#key-functionalities)
 * [Key Components](#key-components)
-* [Design Patterns](#design-patterns)
 * [Technologies and Dependencies](#technologies-and-dependencies)
 * [Future Enhancements](#future-enhancements)
 * [Conclusion](#conclusion)
 
 ## Key Functionalities
-### 1. User Management:
-* Register new users with username and password `UserManagerImpl`.
-* Login functionality with admin check and user validation.
-* Admins can delete users, and all their reservations are automatically removed.
-### 2. Room and Room Type Management:
-* Create, update, and delete rooms `RoomManagerImpl` and room types `RoomTypeManagerImpl`.
-* Rooms have a status `AVAILABLE` or `BOOKED` managed by `RoomStatusService`.
-* Admins can view all rooms and room types, and associate rooms with specific types.
-### 3. Reservation Management:
-* Users can book rooms and cancel reservations `BookingManagerImpl`.
-* Admins can delete any reservation and manage all bookings.
-* Reservation history can be retrieved per user.
-### 4. UI Management:
-* The UI is modular, built using Java Swing, with different panels for login, registration, user dashboard, and admin dashboard.
-* Mediator Pattern: `UIController` and `MainWindow` act as mediators, handling communication between panels and centralizing control of UI state and transitions.
-### 5. Repository-Based Entity Creation (Factory-Like Pattern):
-* All core entities (`User`, `Room`, `RoomType`, `Reservation`) are created through repository services, which generate unique IDs and persist objects.
-* This imitates a database-like behavior with ID generation and centralized persistence.
-```java
-// Example from UserManagerImpl:
-int userId = userRepoService.generateNextId();
-User currentUser = new UserImpl(userId, username, password);
-userRepoService.createValue(currentUser);
-System.out.println(userId);
-User registeredUser = userRepoService.findById(userId);
-```
-* Example with create a room object 
-```java
-// Room creation example from AdminMenuPanel:
-RoomType roomType = (RoomType) roomTypeJComboBox.getSelectedItem();
-double roomPrice = Double.parseDouble(pricePerNight.getText());
-double roomFee = Double.parseDouble(cancelFee.getText());
-roomManager.createNewRoom(roomType, roomPrice, roomFee);
-```
-```java
-// Generic repository pseudo-Factory logic:
-public void createValue(T entity) {
-    // Persist entity to in-memory store or file
-if (newInstance == null || existsById(newInstance.getId())) {
-    System.out.println(typeName() + " cannot be null or already existed!");
-    return;
-}
-    entityMap.put(newInstance.getId(), newInstance);
-    persistToFile();
-    generateNextId(newInstance.getId());
-    System.out.println("New " + typeName() + " is added!");
-}
-
-public int generateNextId() {
-    setNewId(newId + 1);
-    return newId;
-}
-```
-* This approach ensures `unique IDs` and centralized entity creation, demonstrating a lightweight Factory Pattern in practice without a full database backend.
+### 1. Dynamic Table Population:
+* Based on user selection, the system loads the appropriate JSON file (mapped via `DataType`) and displays product data in a `dynamically` generated table. The columns are created based on the fields in the `Product` class using reflection.
+### 2. Data Manipulation:
+* Users can select products via checkboxes and perform actions like saving, deleting, or counting products displayed in the table. This functionality is handled by `TableManager`, while `FileUtils` manages file `I/O operations`.
+### 3. File-Product Mapping:
+* Each product type corresponds to a dedicated `JSON file`, which is read `dynamically` via `JsonReader`. This modular setup allows easy expansion—new product types can be added simply by creating a new JSON file and defining a new product class.
+### 4. Validation and Error Handling:
+* Validation mechanisms ensure data integrity, such as checking for consistent product types within a JSON file and ensuring the presence of required JSON parameters. Error handling in Gmail API calls is also managed to prevent disruptions in email notifications.
+### 5. Email Notifications
+* Users can send email `notifications` about product data using `Gmail API`. `GmailUtils` handles the email-sending logic, ensuring secure and error-free messaging via `OAuth`.
 
 ## Key Components
-### 1. Repository Services:
-* `RepoService<T>`: Generic repository handling creation, updating, deletion, and retrieval of entities.
-* ID Generation: Ensures unique IDs for users, rooms, room types, and reservations, following a `Factory-like approach` with `ObjectProvider<T>`:
+### 1. Product Management and Data Handling
+* The core logic revolves around managing various product types (e.g., `VedenaProduct`, `BiroterapiyaProduct`, `ConsumerProduct`) that extend from the base `Product` class. Each product type is mapped to a corresponding JSON file through the `DataType` enum.
+* JSON Parsing: The parsing logic is now split across classes such as `JsonReader` for reading JSON files and `JsonMapper` for `dynamically` mapping JSON data to Java objects, ensuring extensibility with minimal changes to core functionality.
+### 2. Class Structure
+* ``Product Class``: The abstract `Product class`, located in the "data_models" directory, defines common fields like `name`, `price`, `quantity`, `description`, and a `CheckBox` for UI selection.
+* Product Types: Classes like `VedenaProduct`, `BiroterapiyaProduct`, and `ConsumerProduct` (found in the "data_models/models" package) inherit from the base `Product` class and may define additional fields or behaviors.
+* DataType Enum: Maps each product type to its respective JSON file (e.g., `VEDENA` to `vedena.json`). This enum includes helper methods for parsing product types from strings and retrieving associated file directories.
+### 3. UI Components
+* The main table for displaying products is built with `DeliveryTableView`, an extension of `MainTableView`. This class is responsible for dynamically generating table columns based on product type and loading data from JSON files.
+* SceneBuilder is used to build the UI layout in FXML files, allowing users to load data, save modifications, delete products, and interactively manage product details.
+### 4. Functional Manager
+The core functionality has been modularized into three key manager classes:
+* FileUtils: Responsible for handling file operations, including saving and loading JSON files for products.
 ```java
-public interface ObjectProvider<T> {
+    public static void saveAction(Product product, String fileName) {
+        /*
+            This method saves a finished product in the corresponding file in which we want to save it. We add it this
+            way because we want the method to visually and permanently add the product to the data file that resides in
+            the resources directory always. The file name must have it and the extension, otherwise the method will
+            throw an exception.
+         */
 
-    /**
-     * Creates an object from a given set of string data values.
-     *
-     * @param data the array containing object properties as strings
-     * @return the reconstructed object instance
-     */
-    T getObjectFromData(String[] data);
-}
+        JsonDataManager jsonDataManager = new JsonDataManager();
+        jsonDataManager.saveInfoToJsonFile(product.toJsonFileFormat(), fileName);
+    }
+    public static void deleteProductFromTable(Product selectedProducts, TableView<Product> table) {
+        table.getItems().removeAll(selectedProducts);
+    }
 ```
-* For example how this factory pattern create one intance be extracting data from file:
+* TableManager: Manages table-related functionalities, such as adding, removing, and counting products displayed in the table view.
 ```java
-    protected void persistToFile() {
-        try (PrintWriter writer = new PrintWriter(Configurations.FILE_ROOT_PATH + repositoryFileName)) {
-            for (T entity : entityMap.values()) {
-                writer.print(entity.textFormat());
+    public static void setAddingActionEventToCheckBox(CheckBox box, Product product,
+                                                      TableView<Product> requestTable, Label productCounter) {
+
+        box.setOnAction(event -> {
+            boolean productExists = checkForMatch(product, requestTable);
+            if (box.isSelected()) {
+                addProductToTable(product, requestTable, productExists);
+            } else {
+                removeProductFromTable(product, requestTable);
+                requestTable.refresh();
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error while writing to the file: " +
-                    Configurations.FILE_ROOT_PATH + repositoryFileName, e);
+
+            productCounter.setText(String.valueOf(requestTable.getItems().size()));
+        });
+    }
+```
+* UIUtils: Enhances the user experience by managing animations (e.g., slide animation for shopping cart) and UI interactions for a smoother workflow.
+### 5. JSON Data Manager
+The JSON management functionality is divided across several classes:
+* JsonReader: Responsible for loading and parsing `JSON` files as `JSONObject` instances. It includes methods like `getJsonFileObject` for obtaining JSON file data and `findJsonArray` for locating JSON arrays within objects.
+* Product Creation via `Reflection`: Dynamically creates product objects based on the data type and the `constructor parameters` (always take the constructor with the fewest parameters) found in the JSON file, allowing future product types to be integrated easily without changing existing logic.
+* Data Validation: Validates the structure of the JSON files to ensure they conform to the expected format and have the correct parameters.
+* JsonMapper: Uses reflection to dynamically map JSON data to Java objects based on class definitions. Key methods include `mapJsonArrayToList` (to map JSON arrays to Java lists) and `getJsonValuesForClass` (to retrieve class fields and map JSON values to them). This `flexibility` allows for easy addition of new product types and fields.
+```java
+    @Override
+    public List<Product> getProductsFromJsonFile(String fileName) {
+        String absolutePath = RESOURCE_DIR + fileName;
+
+        JSONArray jsonArray = JsonReader.findJsonArray(JsonReader.getJsonFileObject(absolutePath));
+        List<Product> products = fillListWithProducts(jsonArray);
+
+        return products;
+    }
+```
+### 6. Reflection and Dynamic Object Creation
+* The ProductFactory class uses reflection to create instances of product classes based on JSON data. It scans available constructors in each class to match parameters in JSON, ensuring correct instantiation.
+```java
+    public static Product createProductObject(DataType type, List<Object> elements) throws InvocationTargetException,
+            InstantiationException, IllegalAccessException {
+        Class<?> productClass = getClassByType(type);
+
+        return ReflectionUtils.createObject(productClass, elements);
+    }
+```
+* The ReflectionUtils class includes utilities for working with class fields and constructors dynamically, enabling the seamless addition of new fields or products.
+```java
+    public static <T> T createObject(Class<?> clazz, List<Object> elements) throws
+            InvocationTargetException, InstantiationException, IllegalAccessException {
+        Constructor<?>[] constructors = clazz.getConstructors();
+        /*
+            Since we may have more than one constructor in the future, we want to be able to dynamically create an
+            object of the Product class when the appropriate constructor (with the required number of parameters) is
+            found to create an object of the Product class.
+         */
+
+        for (Constructor<?> constructor : constructors) {
+            if (constructor.getParameterCount() == elements.size()) {
+                return (T) constructor.newInstance(elements.toArray());
+            }
+        }
+
+        throw new IllegalArgumentException("There is no suitable constructor for this class with so many parameters." +
+                System.lineSeparator() + "Cannot create class " + clazz);
+    }
+    
+```
+### 7. Gmail Integration
+The Gmail integration module enables email notifications directly from the application:
+* GmailConfigurationManager: Manages the configuration settings for Gmail, using a singleton pattern to ensure only one instance is created. Loads configuration settings from JSON files to enable secure, OAuth-based access.
+```java
+    public static void sendMail(String title, String textBody) throws Exception {
+        // Build a new authorized API client service
+        Gmail service = createGmailService();
+
+        // Encode as MIME message
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+        MimeMessage email = getMimeMessage(title, textBody, session);
+
+        // Encode and wrap the MIME message into a gmail message
+        Message message = getMessage(email);
+
+        try {
+            // Create send message
+            service.users().messages().send("me", message).execute();
+        } catch (GoogleJsonResponseException e) {
+            GoogleJsonError error = e.getDetails();
+            if (error.getCode() == 403) {
+                System.err.println("Unable to send message: " + e.getDetails());
+            } else {
+                throw e;
+            }
         }
     }
+    @NotNull
+    private static InputStream loadServiceConfiguration() throws FileNotFoundException {
+        InputStream in = new FileInputStream(CREDENTIALS_FILE_PATH);
+        if (in == null) {
+            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+        }
 
-@Override
-    public Reservation getObjectFromData(String[] data) {
-        Integer id = Integer.parseInt(data[0].split(REGEX_EXPRESSION)[VALUE_POSITION]);
-        Integer userId = Integer.parseInt(data[1].split(REGEX_EXPRESSION)[VALUE_POSITION]);
-        Integer roomId = Integer.parseInt(data[2].split(REGEX_EXPRESSION)[VALUE_POSITION]);
-        LocalDate arrivalData = LocalDate.parse(data[3].split(REGEX_EXPRESSION)[VALUE_POSITION], formatter);
-        LocalDate departureDate = LocalDate.parse(data[4].split(REGEX_EXPRESSION)[VALUE_POSITION], formatter);
-        boolean isCanceled = data.length == 6 && Boolean.parseBoolean(data[5].split(REGEX_EXPRESSION)[VALUE_POSITION]);
-
-        setNewId(id);
-        return new Reservation(id, userId, roomId, arrivalData, departureDate, isCanceled);
+        return in;
     }
 ```
-### 2. Managers:
-* ``UserManagerImpl``, ``RoomManagerImpl``, ``RoomTypeManagerImpl``, ``BookingManagerImpl``: Encapsulate business logic for `CRUD` operations.
-* Validation, status updates, and entity relationships are handled centrally.
-### 3. UI Components:
-* Abstract UI components are derived from `AbstractsUIElement`.
-* Panels like `LoginPanel`, `RegisterPanel`, `AdminMenuPanel`, and `UserUIElement` provide concrete user interfaces.
-* Dialogs for reservations and entity creation are integrated seamlessly.
-
-## Design Patterns
-### 1. Factory Pattern:
-* Used in repository services to dynamically create entities and generate unique IDs.
-```java
-int roomTypeId = roomTypeRepository.generateNextId();
-roomTypeRepository.createValue(new RoomTypeImpl(roomTypeId, name, amenities, maximumOccupancy));
-```
-* This ensures consistent entity creation and centralizes ID management.
-### 2. Mediator Pattern:
-* `UIController` acts as a mediator for all UI components:
-- Controls which panel is displayed (`MainWindow`).
-- Handles user navigation between login, registration, and main dashboards.
-- Prevents direct coupling between individual panels.
-```java
-public void showLoginPanel() {
-    mainWindow.showPanel(UIElement.LOGIN.getTypeAsString());
-}
-```
-* All UI panels communicate via `UIController` instead of directly invoking each other, simplifying maintenance and extensibility.
-```java
-public interface UIController {
-
-    /**
-     * Registers a UI component (panel, dialog, etc.) to the main application window.
-     *
-     * @param component the UI component type to register
-     */
-    void registerComponents(UIElement component);
-
-    /**
-     * Displays the login panel.
-     */
-    void showLoginPanel();
-
-    /**
-     * Displays the registration panel.
-     */
-    void showRegisterPanel();
-
-    /**
-     * Displays the main user panel for the given user.
-     * @param userId the ID of the user whose data should be loaded
-     */
-    void showMainPanel(Integer userId);
-
-    /**
-     * Displays the admin panel view.
-     */
-    void showAdminPanel();
-
-    /**
-     * Creates and initializes all repository instances.
-     * Repositories are responsible for handling persistent data access and storage.
-     */
-    void createRepositoryInstances();
-
-    /**
-     * Creates and initializes all manager instances.
-     * Managers act as business logic layers built on top of repository services.
-     */
-    void createManagerInstances();
-}
-```
+* GmailConfiguration: Contain all needed data for validation, authorization and sending mails. This class takes the date from "configuration.json" and contains all needed parameters and dependencies like tokens and e.t.
+* GmailUtils: Handles the sending of emails through Gmail API. It constructs MIME messages, encodes them in Base64, and manages the email-sending process while handling potential errors with Google API responses.
 
 ## Technologies and Dependencies
-* Java 17 (or compatible)
-* Java Swing for UI components
-* Repository-based persistence (file-backed or in-memory) from scratch
-* Object-Oriented Programming best practices (encapsulation, inheritance, interfaces)
-* Design Patterns: Factory (ID generation & entity creation), Mediator (UI management)
+* JavaFX: Used for building the graphical user interface.
+* Gmail API: Utilized for sending email notifications.
+* JSON Library: The `org.json` library is used for parsing and handling JSON data.
+* Reflection API: Enables dynamic product creation and field mapping, allowing the system to adapt easily to new product types.
+Maven Dependencies:
+* `org.json` for JSON handling.
+* `org.reflections` for using Java `Reflection APIs` to dynamically manage product types.
+* `javax.mail` for email handling.
+* `google-api-client`, `google-oauth-client`, and `google-api-services-gmail` for Gmail API integration.
 
 ## Future Enhancements
-* Add persistent JSON or database storage for users, rooms, and reservations.
-* Introduce advanced filtering and searching for rooms and reservations.
-* Integrate notifications for reservation confirmations.
-* Extend user roles and permissions (e.g., staff, manager).
+### 1. Extendable Product Types: The system is built for easy extension. Adding a new product type requires::
+* Defining a new class that inherits from `Product`.
+* Adding the new type to the `DataType` enum.
+* Creating a corresponding JSON file.
+### 2. Advanced JSON Parsing 
+* Enhancements in the `JsonMapper` could include more sophisticated data type conversions and error handling, allowing for complex data structures and robust validation.
+### 3. Additional Table Views and Data Types
+* New table views and data types can be incorporated into the UI and managed dynamically using the existing `TableManager` and JSON processing classes.
 
 ## Conclusion
-This hotel management application demonstrates clean OOP principles, modular architecture, and the application of design patterns for a maintainable and extensible system. Its use of Swing, repository services, and mediator-driven UI ensures separation of concerns while keeping the system adaptable for future growth.
+This application provides a robust and extendable framework for managing product data from JSON files, displaying it in a JavaFX table, and incorporating Gmail-based notifications. Its architecture leverages the power of reflection for dynamic object creation, JSON for flexible data management, and Gmail API for notification capabilities, making it a powerful tool for product management.
 
 ## Contact
-If you’d like to discuss my work, provide feedback, or explore potential opportunities, feel free to reach out to me at kristiyan18kiko@abv.com.
-
-Thank you for your time and interest in reviewing my repository!
+If you’d like to discuss my work, provide feedback, or explore potential opportunities, feel free to reach out to me at kristiyan18kiko@gmail.com.
